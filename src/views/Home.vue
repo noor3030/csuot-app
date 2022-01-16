@@ -1,30 +1,48 @@
 <template>
   <v-container style="height: 100%; width: 100%">
-    <v-select :items="items" label="Standard"></v-select>
+    <v-select
+      :items="schedule.stages"
+      label="Stage"
+      item-text="name"
+      item-value="id"
+      v-on:change="changeStageId"
+    ></v-select>
 
     <table height="80%">
       <thead>
         <tr>
           <th></th>
-          <th v-for="period in periods" :key="period.id">
+          <th v-for="period in schedule.periods" :key="period.id">
             {{ period.start_time }} - {{ period.end_time }}
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="day in days" :key="day.id">
+        <tr v-for="day in schedule.days" :key="day.id">
           <td>{{ day.name }}</td>
-          <td v-for="period in periods" :key="period.id">
+          <td v-for="period in schedule.periods" :key="period.id">
             <div v-if="getCard(period.id, day.id, stage_id) != null">
               <p>
                 {{
                   getTeacher(
-                    getCard( 
+                    getCard(
                       period.id,
                       day.id,
 
                       stage_id
                     ).lesson.teacher_id
+                  ).name||"test"
+                }}
+              </p>
+              <p>
+                {{
+                  getSubjects(
+                    getCard(
+                      period.id,
+                      day.id,
+
+                      stage_id
+                    ).lesson.subject_id
                   ).name
                 }}
               </p>
@@ -44,11 +62,8 @@ export default Vue.extend({
   data() {
     return {
       schedule: {} as types.Schedule,
-      teachers: [] as types.Teacher[],
-      days: [],
-      periods: [],
-      cards: [],
-      stage_id: "5cd879ce-eafd-4997-8c91-b55df74563a1",
+
+      stage_id: "",
     };
   },
   async created() {
@@ -56,18 +71,21 @@ export default Vue.extend({
       .get("https://csuot.herokuapp.com/v1/schedule/")
       .then((response) => {
         this.schedule = response.data;
-        this.days = response.data.days;
-        this.teachers = response.data.teachers as types.Teacher[];
-        this.periods = response.data.periods;
-        this.cards = response.data.cards;
       });
   },
   methods: {
     getTeacher(id: string) {
-      for (let i of this.teachers) {
+      for (let i of this.schedule.teachers) {
         console.log(i);
         if (i.id == id) {
           return i;
+        }
+      }
+    },
+    getSubjects(id: string) {
+      for (let subject of this.schedule.subjects) {
+        if (subject.id == id) {
+          return subject;
         }
       }
     },
@@ -81,6 +99,9 @@ export default Vue.extend({
           return card;
         }
       }
+    },
+    changeStageId(id: string) {
+      this.stage_id = id;
     },
   },
 });
