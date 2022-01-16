@@ -21,32 +21,12 @@
         <tr v-for="day in schedule.days" :key="day.id">
           <td>{{ day.name }}</td>
           <td v-for="period in schedule.periods" :key="period.id">
-            <div v-if="getCard(period.id, day.id, stage_id) != null">
-              <p>
-                {{
-                  getTeacher(
-                    getCard(
-                      period.id,
-                      day.id,
-
-                      stage_id
-                    ).lesson.teacher_id
-                  ).name||"test"
-                }}
-              </p>
-              <p>
-                {{
-                  getSubjects(
-                    getCard(
-                      period.id,
-                      day.id,
-
-                      stage_id
-                    ).lesson.subject_id
-                  ).name
-                }}
-              </p>
-            </div>
+            <CardSchedule
+              v-if="getCard(period.id, day.id, stage_id) != null"
+              :card="getCard(period.id, day.id, stage_id)"
+              :teachers="schedule.teachers"
+              :subjects="schedule.subjects"
+            />
           </td>
         </tr>
       </tbody>
@@ -57,7 +37,7 @@
 import Vue from "vue";
 import axios from "axios";
 import types from "@/ScheduleType";
-
+import CardSchedule from "@/components/CardSchedule.vue";
 export default Vue.extend({
   data() {
     return {
@@ -70,25 +50,11 @@ export default Vue.extend({
     await axios
       .get("https://csuot.herokuapp.com/v1/schedule/")
       .then((response) => {
-        this.schedule = response.data;
+        this.schedule = response.data as types.Schedule;
+        this.changeStageId(this.schedule.stages[0].id)
       });
   },
   methods: {
-    getTeacher(id: string) {
-      for (let i of this.schedule.teachers) {
-        console.log(i);
-        if (i.id == id) {
-          return i;
-        }
-      }
-    },
-    getSubjects(id: string) {
-      for (let subject of this.schedule.subjects) {
-        if (subject.id == id) {
-          return subject;
-        }
-      }
-    },
     getCard(period_id: string, day_id: string, stage_id: string) {
       for (let card of this.schedule.cards) {
         if (
@@ -102,8 +68,10 @@ export default Vue.extend({
     },
     changeStageId(id: string) {
       this.stage_id = id;
+      console.log(this.stage_id);
     },
   },
+  components: { CardSchedule },
 });
 </script>
 
