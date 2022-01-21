@@ -12,19 +12,23 @@ declare module types {
         id: string;
     }
 
-    export interface Lesson {
-        subject_id: string;
-        teacher_id: string;
-        stage_id: string;
-        id: string;
-    }
-
     export interface Card {
         period_id: string;
         day_id: string;
         lesson_id: string;
         id: string;
         lesson: Lesson;
+    }
+
+    export interface IdObject {
+        id: string;
+    }
+
+    export interface Lesson {
+        subject_id: string;
+        teacher_id: string;
+        id: string;
+        stages: any[];
     }
 
     export interface Building {
@@ -70,18 +74,25 @@ declare module types {
         id: string;
     }
 
+    export interface Branch {
+        id: string;
+        name: string;
+    }
+
     export interface Stage {
         name: string;
         shift: string;
         level: number;
         branch_id: string;
         id: string;
+        branch: Branch;
     }
 
     export interface Schedule {
         days: Day[];
         periods: Period[];
         cards: Card[];
+        lessons: Lesson[];
         buildings: Building[];
         floors: Floor[];
         classrooms: Classroom[];
@@ -89,5 +100,6 @@ declare module types {
         teachers: Teacher[];
         stages: Stage[];
     }
+
 }
 export default types;

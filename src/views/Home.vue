@@ -1,29 +1,23 @@
 <template>
   <v-container style="height: 100%; width: 100%">
     <v-select
+      v-model="stage"
       :items="schedule.stages"
       label="Stage"
       item-text="name"
-      item-value="id"
-      v-on:change="changeStageId"
+      return-object
+      v-on:change="changeStage"
     ></v-select>
 
     <table height="80%">
-      <thead>
-        <tr>
-          <th></th>
-          <th v-for="period in schedule.periods" :key="period.id">
-            {{ period.start_time }} - {{ period.end_time }}
-          </th>
-        </tr>
-      </thead>
+     
       <tbody>
         <tr v-for="day in schedule.days" :key="day.id">
           <td>{{ day.name }}</td>
           <td v-for="period in schedule.periods" :key="period.id">
             <CardSchedule
-              v-if="getCard(period.id, day.id, stage_id) != null"
-              :card="getCard(period.id, day.id, stage_id)"
+              v-if="getCard(period.id, day.id) != null"
+              :card="getCard(period.id, day.id)"
               :teachers="schedule.teachers"
               :subjects="schedule.subjects"
             />
@@ -43,7 +37,7 @@ export default Vue.extend({
     return {
       schedule: {} as types.Schedule,
 
-      stage_id: "",
+      stage: {} as types.Stage,
     };
   },
   async created() {
@@ -51,24 +45,35 @@ export default Vue.extend({
       .get("https://csuot.herokuapp.com/v1/schedule/")
       .then((response) => {
         this.schedule = response.data as types.Schedule;
-        this.changeStageId(this.schedule.stages[0].id)
+        this.changeStage(this.schedule.stages[0]);
       });
   },
   methods: {
-    getCard(period_id: string, day_id: string, stage_id: string) {
+    getCard(period_id: string, day_id: string) {
       for (let card of this.schedule.cards) {
+        let lesson = this.getLesson(card.lesson_id);
+
         if (
           card.period_id === period_id &&
           card.day_id === day_id &&
-          card.lesson.stage_id == stage_id
+          lesson?.stages.includes([{ id: this.stage.id }])
         ) {
+          card.lesson = lesson;
+        
           return card;
         }
       }
     },
-    changeStageId(id: string) {
-      this.stage_id = id;
-      console.log(this.stage_id);
+    getLesson(id: string) {
+      for (let lesson of this.schedule.lessons) {
+        if (lesson.id == id) {
+          
+          return lesson;
+        }
+      }
+    },
+    changeStage(stage: types.Stage) {
+      this.stage = stage;
     },
   },
   components: { CardSchedule },
