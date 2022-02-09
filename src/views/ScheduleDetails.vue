@@ -1,5 +1,6 @@
 <template>
   <v-container style="height: 100%; width: 100%">
+    <h1 v-for="stage in schedule.stages" :key="stage.id">{{ stage.name }}</h1>
     <table height="100%" width="100%">
       <thead>
         <tr>

@@ -1,5 +1,5 @@
 <template>
-  <div
+  <v-container
     v-if="card != null"
     :style="{ 'background-color': card.lesson.teacher.color }"
     id="card-div"
@@ -13,21 +13,23 @@
     <p v-if="card.lesson.room_id != null">
       {{ card.lesson.room.name }}
     </p>
-  </div>
+  </v-container>
 </template>
 <script lang="ts">
 import Vue from "vue";
+//import { Fragment } from "vue-fragment";
 export default Vue.extend({
   props: {
     card: {
       type: Object,
     },
   },
+  //components: { Fragment },
 });
 </script>
 <style scoped>
 #card-div {
   text-align: middle;
-  height: 16.6%;
+  height: 100%;
 }
 </style>
