@@ -6,7 +6,8 @@
         <tr>
           <th></th>
           <th v-for="period in schedule.periods" :key="period.id">
-            {{ period.start_time }} - {{ period.end_time }}
+            {{ formatPeriod(period.start_time) }} -
+            {{ formatPeriod(period.end_time) }}
           </th>
         </tr>
       </thead>
@@ -25,6 +26,7 @@
 import Vue from "vue";
 import axios from "axios";
 import types from "@/CardTypes";
+import formatPeriod from "@/utils/DateTimeUtils"
 import CardScheduleDetails from "@/components/CardScheduleDetails.vue";
 export default Vue.extend({
   data() {
@@ -49,6 +51,7 @@ export default Vue.extend({
         if (card.period_id === period_id && card.day_id === day_id) return card;
       }
     },
+    formatPeriod
   },
   components: { CardScheduleDetails },
 });
