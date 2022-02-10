@@ -1,7 +1,8 @@
 <template>
-  <v-container style="height: 100%; width: 100%">
-    <h1 v-for="stage in schedule.stages" :key="stage.id">{{ stage.name }}</h1>
-    <table height="100%" width="100%">
+  <div class="table-responsive">
+    <h1 style="text-align: center" class="pb-3">ثالث برمجيات صباحي</h1>
+
+    <table>
       <thead>
         <tr>
           <th></th>
@@ -13,20 +14,22 @@
       </thead>
       <tbody>
         <tr v-for="day in schedule.days" :key="day.id">
-          <td>{{ day.name }}</td>
+          <td>
+            <h2>{{ day.name }}</h2>
+          </td>
           <td v-for="period in schedule.periods" :key="period.id">
             <CardScheduleDetails :card="getCard(period.id, day.id)" />
           </td>
         </tr>
       </tbody>
     </table>
-  </v-container>
+  </div>
 </template>
 <script lang="ts">
 import Vue from "vue";
 import axios from "axios";
 import types from "@/CardTypes";
-import formatPeriod from "@/utils/DateTimeUtils"
+import formatPeriod from "@/utils/DateTimeUtils";
 import CardScheduleDetails from "@/components/CardScheduleDetails.vue";
 export default Vue.extend({
   data() {
@@ -51,22 +54,48 @@ export default Vue.extend({
         if (card.period_id === period_id && card.day_id === day_id) return card;
       }
     },
-    formatPeriod
+    formatPeriod,
   },
   components: { CardScheduleDetails },
 });
 </script>
-<style scoped>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans:wght@200&family=Outfit&family=Tajawal:wght@500&display=swap");
+th {
+  padding: 5px;
+}
 td {
   white-space: pre-wrap;
   word-wrap: break-word;
   text-align: middle;
+  width: 12.5%;
+  
+  height: 20%;
   vertical-align: middle;
 }
 tr {
   display: table-row;
-  height: 1px;
   vertical-align: inherit;
   border-color: inherit;
+}
+h2,
+h1 {
+  font-family: "Tajawal", sans-serif !important;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.table-responsive {
+  height:100%;
+  width: 100%;
+  padding: 10px;
+}
+
+table {
+  height: 100%;
+  width: 100%;
 }
 </style>
