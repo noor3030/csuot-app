@@ -1,28 +1,33 @@
 <template>
-  <div class="table-responsive">
-    <h1 style="text-align: center" class="pb-3">ثالث برمجيات صباحي</h1>
+  <div class="row pl-5">
+    <div class="col-9">
+      <h1 style="text-align: center" class="pb-3">ثالث برمجيات صباحي</h1>
 
-    <table>
-      <thead>
-        <tr>
-          <th></th>
-          <th v-for="period in schedule.periods" :key="period.id">
-            {{ formatPeriod(period.start_time) }} -
-            {{ formatPeriod(period.end_time) }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="day in schedule.days" :key="day.id">
-          <td>
-            <h2>{{ day.name }}</h2>
-          </td>
-          <td v-for="period in schedule.periods" :key="period.id">
-            <CardScheduleDetails :card="getCard(period.id, day.id)" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th v-for="period in schedule.periods" :key="period.id">
+              {{ formatPeriod(period.start_time) }} -
+              {{ formatPeriod(period.end_time) }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="day in schedule.days" :key="day.id">
+            <td>
+              <h2>{{ day.name }}</h2>
+            </td>
+            <td v-for="period in schedule.periods" :key="period.id">
+              <CardScheduleDetails :card="getCard(period.id, day.id)" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-3">
+      <CardDetails />
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -31,6 +36,7 @@ import axios from "axios";
 import types from "@/CardTypes";
 import formatPeriod from "@/utils/DateTimeUtils";
 import CardScheduleDetails from "@/components/CardScheduleDetails.vue";
+import CardDetails from "@/components/CardDetails.vue";
 export default Vue.extend({
   data() {
     return {
@@ -56,7 +62,7 @@ export default Vue.extend({
     },
     formatPeriod,
   },
-  components: { CardScheduleDetails },
+  components: { CardScheduleDetails, CardDetails },
 });
 </script>
 <style>
@@ -69,8 +75,8 @@ td {
   word-wrap: break-word;
   text-align: middle;
   width: 12.5%;
-  
-  height: 20%;
+
+  height: 16.666666666666668%;
   vertical-align: middle;
 }
 tr {
@@ -78,24 +84,13 @@ tr {
   vertical-align: inherit;
   border-color: inherit;
 }
+
 h2,
 h1 {
   font-family: "Tajawal", sans-serif !important;
 }
 
-html,
-body {
-  height: 100%;
-}
-
-.table-responsive {
-  height:100%;
-  width: 100%;
-  padding: 10px;
-}
-
 table {
-  height: 100%;
-  width: 100%;
+  height: 50%;
 }
 </style>
