@@ -1,5 +1,5 @@
 <template>
-  <v-card flat class="mt-16 mr-16 px-5" outlined style="border-color: #ffcc80">
+  <v-card flat class="mt-16 mr-16 px-5" outlined style="border-color: #ddd">
     <h1 style="text-align: end">الاحد</h1>
     <p style="text-align: end">08:30 - 10:30</p>
     <v-container class="container"

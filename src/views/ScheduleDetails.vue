@@ -1,10 +1,10 @@
 <template>
   <div class="row pl-5">
-    <div class="col-9">
+    <div class="col-9 " >
       <h1 class="pb-3">ثالث برمجيات صباحي</h1>
 
       <div class="table-responsive">
-        <table class="table table-bordered align-middle">
+        <table class="table table-bordered align-middle rounded" >
           <thead>
             <tr>
               <th scope="col"></th>
@@ -102,4 +102,6 @@ td{
   height: 110px;
   
 }
+
+
 </style>
