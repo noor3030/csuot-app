@@ -1,20 +1,20 @@
 <template>
-  <v-container
+  <div
+    class="d-flex align-items-center flex-column card-div justify-content-between"
     v-if="card != null"
     :style="{ 'background-color': card.lesson.teacher.color_light }"
-    class="card-div"
   >
-    <p class="pt-5">{{ card.lesson.subject.name }}</p>
-    <p v-if="card.lesson.room_id != null">
+    <div>{{ card.lesson.subject.name }}</div>
+    <div v-if="card.lesson.room_id != null">
       <b>
         {{ card.lesson.room.name }}
       </b>
-    </p>
+    </div>
 
-    <p v-if="card.lesson.teacher_id != null">
+    <div v-if="card.lesson.teacher_id != null">
       {{ card.lesson.teacher.name }}
-    </p>
-  </v-container>
+    </div>
+  </div>
 </template>
 <script lang="ts">
 import Vue from "vue";
@@ -35,7 +35,7 @@ export default Vue.extend({
   height: 100%;
 }
 
-p {
+p,div {
   font-family: "Tajawal", sans-serif !important;
 }
 </style>

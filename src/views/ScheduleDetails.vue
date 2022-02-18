@@ -1,29 +1,42 @@
 <template>
   <div class="row pl-5">
     <div class="col-9">
-      <h1 style="text-align: center" class="pb-3">ثالث برمجيات صباحي</h1>
+      <h1 class="pb-3">ثالث برمجيات صباحي</h1>
 
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            <th v-for="period in schedule.periods" :key="period.id">
-              {{ formatPeriod(period.start_time) }} -
-              {{ formatPeriod(period.end_time) }}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="day in schedule.days" :key="day.id">
-            <td>
-              <h2>{{ day.name }}</h2>
-            </td>
-            <td v-for="period in schedule.periods" :key="period.id">
-              <CardScheduleDetails :card="getCard(period.id, day.id)" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th
+                v-for="period in schedule.periods"
+                :key="period.id"
+                scope="col"
+                class="align-middle"
+              >
+                {{ formatPeriod(period.start_time) }} -
+                {{ formatPeriod(period.end_time) }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="day in schedule.days" :key="day.id">
+              <td class="align-middle">
+                <h2>{{ day.name }}</h2>
+              </td>
+              <td
+                v-for="period in schedule.periods"
+                :key="period.id"
+                class="align-middle"
+                width="12.5%"
+               style="vertical-align: middle"
+              >
+                <CardScheduleDetails :card="getCard(period.id, day.id)" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <div class="col-3">
       <CardDetails />
@@ -67,30 +80,24 @@ export default Vue.extend({
 </script>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans:wght@200&family=Outfit&family=Tajawal:wght@500&display=swap");
-th {
-  padding: 5px;
-}
-td {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  text-align: middle;
-  width: 12.5%;
-
-  height: 16.666666666666668%;
-  vertical-align: middle;
-}
-tr {
-  display: table-row;
-  vertical-align: inherit;
-  border-color: inherit;
-}
 
 h2,
-h1 {
+h1,
+th {
   font-family: "Tajawal", sans-serif !important;
+  text-align: center;
 }
-
-table {
-  height: 50%;
+tr {
+   line-height: 20px;
+   min-height: 20px;
+   height: 20px;
+}
+.table, .row, .table-bordered  {
+    height: 100%;
+}
+tr td{
+  padding: 0 !important;
+  margin: 0 !important;
+  text-align: center;
 }
 </style>
