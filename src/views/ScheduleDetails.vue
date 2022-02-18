@@ -92,12 +92,14 @@ tr {
    min-height: 20px;
    height: 20px;
 }
-.table, .row, .table-bordered  {
-    height: 100%;
-}
+
 tr td{
   padding: 0 !important;
   margin: 0 !important;
   text-align: center;
+}
+td{
+  height: 110px;
+  
 }
 </style>

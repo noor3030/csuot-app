@@ -4,14 +4,14 @@
     v-if="card != null"
     :style="{ 'background-color': card.lesson.teacher.color_light }"
   >
-    <div>{{ card.lesson.subject.name }}</div>
+    <div class="pt-2">{{ card.lesson.subject.name }}</div>
     <div v-if="card.lesson.room_id != null">
       <b>
         {{ card.lesson.room.name }}
       </b>
     </div>
 
-    <div v-if="card.lesson.teacher_id != null">
+    <div v-if="card.lesson.teacher_id != null" class="pb-2">
       {{ card.lesson.teacher.name }}
     </div>
   </div>
