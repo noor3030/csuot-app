@@ -1,10 +1,8 @@
 <template>
-  <div class="row pl-5">
-    <div class="col-9 " >
-      <h1 class="pb-3">ثالث برمجيات صباحي</h1>
-
+  <div class="row  px-7">
+    <div class="col-9">
       <div class="table-responsive">
-        <table class="table table-bordered align-middle rounded" >
+        <table class="table table-bordered align-middle">
           <thead>
             <tr>
               <th scope="col"></th>
@@ -29,7 +27,7 @@
                 :key="period.id"
                 class="align-middle"
                 width="12.5%"
-               style="vertical-align: middle"
+                style="vertical-align: middle"
               >
                 <CardScheduleDetails :card="getCard(period.id, day.id)" />
               </td>
@@ -88,20 +86,20 @@ th {
   text-align: center;
 }
 tr {
-   line-height: 20px;
-   min-height: 20px;
-   height: 20px;
+  line-height: 20px;
+  min-height: 20px;
+  height: 20px;
 }
 
-tr td{
+tr td {
   padding: 0 !important;
   margin: 0 !important;
   text-align: center;
 }
-td{
+td {
   height: 110px;
-  
 }
-
-
+table{
+  border-color: #ddd;
+}
 </style>

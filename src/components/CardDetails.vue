@@ -1,5 +1,5 @@
 <template>
-  <v-card flat class="mt-16 mr-16 px-5" outlined style="border-color: #ddd">
+  <v-card flat class="px-5" outlined style="border-color: #ddd">
     <h1 style="text-align: end">الاحد</h1>
     <p style="text-align: end">08:30 - 10:30</p>
     <v-container class="container"
@@ -7,7 +7,7 @@
         حوسبة مرنة
       </h2></v-container
     >
-    <p style="text-align: end">استاذ احمد طارق</p>
+    <p style="text-align: end" >استاذ احمد طارق</p>
     <p style="text-align: end">قاعة 3</p>
   </v-card>
 </template>
@@ -24,5 +24,9 @@ p {
 .container {
   background-color: #dae2ff;
   border-radius: 28px;
+ 
+}
+p{
+  font-size: 20px;
 }
 </style>
