@@ -1,8 +1,8 @@
 <template>
-  <div class="row  px-7">
+  <div class="row px-7">
     <div class="col-9">
       <div class="table-responsive">
-        <table class="table table-bordered align-middle">
+        <table class="table table-bordered align-middle mt-16">
           <thead>
             <tr>
               <th scope="col"></th>
@@ -80,10 +80,10 @@ export default Vue.extend({
 @import url("https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans:wght@200&family=Outfit&family=Tajawal:wght@500&display=swap");
 
 h2,
-h1,
 th {
   font-family: "Tajawal", sans-serif !important;
   text-align: center;
+  color: var(--on-background);
 }
 tr {
   line-height: 20px;
@@ -99,7 +99,17 @@ tr td {
 td {
   height: 110px;
 }
-table{
-  border-color: #ddd;
+table {
+  background-color: var(--surface-variant);
 }
+table.table-bordered {
+  border-color:  var(--outline);
+}
+table.table-bordered > thead > tr > th {
+  border-color:  var(--outline);
+}
+table.table-bordered > tbody > tr > td {
+  border-color:  var(--outline);
+}
+
 </style>

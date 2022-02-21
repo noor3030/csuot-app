@@ -7,7 +7,7 @@
         </div>
       </div>
       <div class="row">
-        <p>
+        <p style="color: var(--on-secondary-container)">
           قراءة الجدول بابسط طريقة ممكنة وبوت تليكرام لتحسين تطبيق القسم<br />
           التطبيق مفتوح المصدر افتح رابط التليكرام لطريقة الاستخدام
         </p>
@@ -20,8 +20,11 @@
       </section>
       <v-divider></v-divider>
       <v-row>
-        <p>
-          <b>By: @Constroctor Team</b><a href="" class="pl-3" style="color:#000"><b>Telegram</b></a>
+        <p style="color: var(--on-secondary-container)">
+          <b>By: @Constroctor Team</b
+          ><a href="" class="pl-3" style="color: var(--on-secondary-container)"
+            ><b>Telegram</b></a
+          >
         </p>
       </v-row>
     </div>
@@ -37,11 +40,12 @@ a {
 }
 
 footer {
-  background-color: #dae2f9;
+  background-color: var(--secondary-container);
   border-radius: 28px;
 }
 .link {
   text-decoration: none;
   padding-right: 16px;
+  color: var(--primary);
 }
 </style>
