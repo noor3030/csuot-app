@@ -1,5 +1,5 @@
 <template>
-  <v-app class="dark" style="background-color: var(--background)">
+  <v-app class="light" style="background-color: var(--background)">
     <Navbar />
 
     <v-main>

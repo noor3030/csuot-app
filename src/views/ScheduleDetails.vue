@@ -76,7 +76,7 @@ export default Vue.extend({
   components: { CardScheduleDetails, CardDetails },
 });
 </script>
-<style>
+<style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans:wght@200&family=Outfit&family=Tajawal:wght@500&display=swap");
 
 h2,
@@ -91,25 +91,27 @@ tr {
   height: 20px;
 }
 
-tr td {
+tr td{
   padding: 0 !important;
   margin: 0 !important;
   text-align: center;
+ 
 }
 td {
   height: 110px;
 }
 table {
-  background-color: var(--surface-variant);
+  background-color: var(--surface-background);
 }
 table.table-bordered {
-  border-color:  var(--outline);
+  border-color: var(--outline);
 }
 table.table-bordered > thead > tr > th {
-  border-color:  var(--outline);
+  border-color: var(--outline);
 }
+
 table.table-bordered > tbody > tr > td {
-  border-color:  var(--outline);
+  border-color: var(--outline);
 }
 
 </style>
