@@ -38,20 +38,20 @@ span {
 }
 </style>
 <script lang="ts">
-import Vue from 'vue'
+import Vue from "vue";
 export default Vue.extend({
   data() {
     return {
-       scrollPosition:  null as any
-    }
+      scrollPosition: null as any,
+    };
   },
   methods: {
     updateScroll() {
-       this.scrollPosition = window.scrollY
-    }
-},
-mounted() {
-    window.addEventListener('scroll', this.updateScroll);
-}
-})
+      this.scrollPosition = window.scrollY;
+    },
+  },
+  mounted() {
+    window.addEventListener("scroll", this.updateScroll);
+  },
+});
 </script>
