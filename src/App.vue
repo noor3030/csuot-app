@@ -1,7 +1,7 @@
 <template>
-  <v-app class="light" style="background-color: var(--background)">
+  <v-app :class="currentTheme" style="background-color: var(--background);transition: background 500ms ease-in-out, color 1000ms ease-in-out;" id="app">
     <Navbar />
-
+    
     <v-main>
       <router-view />
     </v-main>
@@ -19,8 +19,15 @@ export default Vue.extend({
   name: "App",
 
   data: () => ({
-    //
+  
   }),
+
+
+  methods: {
+    
+  },
   components: { Navbar, Footer },
 });
 </script>
+<style >
+</style>

@@ -18,7 +18,7 @@
         <a href="" class="link">Main website</a>
         <a href="" class="link">UOT website</a>
       </section>
-      <v-divider></v-divider>
+      <v-divider style="color:var(--outline);"></v-divider>
       <v-row>
         <p style="color: var(--on-secondary-container)">
           <b>By: @Constroctor Team</b

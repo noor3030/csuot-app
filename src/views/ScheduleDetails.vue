@@ -114,4 +114,7 @@ table.table-bordered > tbody > tr > td {
   border-color: var(--outline);
 }
 tbody{border-top: 1px !important;}
+
+
+
 </style>
