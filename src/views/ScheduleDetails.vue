@@ -5,13 +5,9 @@
         <table class="table table-bordered align-middle mt-16">
           <thead>
             <tr>
+
               <th scope="col"></th>
-              <th
-                v-for="period in schedule.periods"
-                :key="period.id"
-                scope="col"
-                class="align-middle"
-              >
+              <th v-for="period in schedule.periods" :key="period.id" scope="col" class="align-middle">
                 {{ formatPeriod(period.start_time) }} -
                 {{ formatPeriod(period.end_time) }}
               </th>
@@ -22,19 +18,16 @@
               <td class="align-middle">
                 <h2>{{ day.name }}</h2>
               </td>
-              <td
-                v-for="period in schedule.periods"
-                :key="period.id"
-                class="align-middle"
-                width="12.5%"
-                style="vertical-align: middle"
-              >
+              <td v-for="period in schedule.periods" :key="period.id" class="align-middle" width="12.5%" style="vertical-align: middle">
                 <CardScheduleDetails :card="getCard(period.id, day.id)" />
               </td>
             </tr>
           </tbody>
         </table>
+
       </div>
+
+     
     </div>
     <div class="col-3">
       <CardDetails />
@@ -91,11 +84,11 @@ tr {
   height: 20px;
 }
 
-tr td{
+
+tr td {
   padding: 0 !important;
   margin: 0 !important;
   text-align: center;
- 
 }
 td {
   height: 110px;
@@ -113,8 +106,7 @@ table.table-bordered > thead > tr > th {
 table.table-bordered > tbody > tr > td {
   border-color: var(--outline);
 }
-tbody{border-top: 1px !important;}
-
-
-
+tbody {
+  border-top: 1px !important;
+}
 </style>
