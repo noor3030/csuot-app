@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="d-flex align-items-center flex-column card-div justify-content-between"
-    v-if="card != null"
-    :style="{ 'background-color': card.lesson.teacher.color_light }"
-  >
+  <div @click="clicked" class="d-flex align-items-center flex-column card-div justify-content-between" v-if="card != null" :style="{ 'background-color': card.lesson.teacher.color_light }">
     <div class="pt-2">{{ card.lesson.subject.name }}</div>
     <div v-if="card.lesson.room_id != null">
       <b>
@@ -25,7 +21,11 @@ export default Vue.extend({
       type: Object,
     },
   },
-  //components: { Fragment },
+  methods: {
+    clicked() {
+      this.$emit("clicked", this.card)
+    }
+  }
 });
 </script>
 <style>
@@ -35,7 +35,8 @@ export default Vue.extend({
   height: 100%;
 }
 
-p,div {
+p,
+div {
   font-family: "Tajawal", sans-serif !important;
 }
 </style>

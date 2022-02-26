@@ -1,46 +1,53 @@
 <template>
+  <div class="row px-7 py-5">
+     <div class="col-9">
+    <div class="table-responsive">
+      <table class="table table-bordered align-middle mt-16">
+        <thead>
+          <tr>
 
-  <div class="table-responsive">
-    <table class="table table-bordered align-middle mt-16">
-      <thead>
-        <tr>
-
-          <th scope="col"></th>
-          <th v-for="period in schedule.periods" :key="period.id" scope="col" class="align-middle">
-            {{ formatPeriod(period.start_time) }} -
-            {{ formatPeriod(period.end_time) }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="day in schedule.days" :key="day.id">
-          <td class="align-middle">
-            <h2>{{ day.name }}</h2>
-          </td>
-          <td v-for="period in schedule.periods" :key="period.id" class="align-middle" width="12.5%" style="vertical-align: middle" >
-            <CardScheduleDetails :card="getCard(period.id, day.id)" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
+            <th scope="col"></th>
+            <th v-for="period in schedule.periods" :key="period.id" scope="col" class="align-middle">
+              {{ formatPeriod(period.start_time) }} -
+              {{ formatPeriod(period.end_time) }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="day in schedule.days" :key="day.id">
+            <td class="align-middle">
+              <h2>{{ day.name }}</h2>
+            </td>
+            <td v-for="period in schedule.periods" :key="period.id" class="align-middle" width="12.5%" style="vertical-align: middle">
+              <CardScheduleDetails :card="getCard(period.id, day.id)" @clicked="onCardClick" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+     <FabDownload />
+    </div>
+    <div class="col-3">
+      <CardDetails :card ="selectedCard"/>
+    </div>
   </div>
-  
 </template>
 <script lang="ts">
 import Vue from "vue";
 import axios from "axios";
 import types from "@/CardTypes";
 import formatPeriod from "@/utils/DateTimeUtils";
+import CardDetails from "@/components/CardDetails.vue";
 import CardScheduleDetails from "@/components/CardScheduleDetails.vue";
-
+import FabDownload from "@/components/FabDownload.vue";
 import { BASE_URL } from "@/utils/config"
 
 export default Vue.extend({
   data() {
     return {
-       
+
       id: "",
+      selectedCard: null,
       schedule: {} as types.Schedule,
     };
   },
@@ -60,11 +67,18 @@ export default Vue.extend({
         if (card.period_id === period_id && card.day_id === day_id) return card;
       }
     },
+
+    onCardClick(card: any) {
+      console.log(card);
+
+      this.selectedCard = card;
+    },
+
     formatPeriod,
-  
-            
+
+
   },
-  components: { CardScheduleDetails },
+  components: { CardScheduleDetails , CardDetails, FabDownload},
 });
 </script>
 <style lang="scss" scoped>
