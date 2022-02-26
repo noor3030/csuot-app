@@ -20,7 +20,7 @@
 
    
 
-    <button type="button" class="telegram-btn px-4 py-2">
+    <button type="button" class="telegram-btn px-4 py-2" @click="telegramBot">
       open telegram bot
       <v-icon color="var(--on-tertiary)">mdi-arrow-right-thin</v-icon>
     </button>
@@ -77,6 +77,9 @@ export default Vue.extend({
 
       }
     },
+    telegramBot(){
+      location.href = "https://t.me/CsUotBot";
+    }
   },
   mounted() {
     window.addEventListener("scroll", this.updateScroll);

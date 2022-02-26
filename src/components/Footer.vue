@@ -14,15 +14,15 @@
       </div>
       <section>
         <a href="" class="link">GitHup</a>
-        <a href="" class="link">Telegram bot</a>
+        <a href="https://t.me/CsUotBot" class="link">Telegram bot</a>
         <a href="" class="link">Main website</a>
-        <a href="" class="link">UOT website</a>
+        <a href="https://www.uotechnology.edu.iq/" class="link">UOT website</a>
       </section>
       <v-divider style="color:var(--outline);"></v-divider>
       <v-row>
         <p style="color: var(--on-secondary-container)">
           <b>By: @Constroctor Team</b
-          ><a href="" class="pl-3" style="color: var(--on-secondary-container)"
+          ><a href="https://t.me/CsUotBot" class="pl-3" style="color: var(--on-secondary-container)"
             ><b>Telegram</b></a
           >
         </p>

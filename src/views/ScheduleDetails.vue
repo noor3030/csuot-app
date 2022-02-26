@@ -17,7 +17,7 @@
           <td class="align-middle">
             <h2>{{ day.name }}</h2>
           </td>
-          <td v-for="period in schedule.periods" :key="period.id" class="align-middle" width="12.5%" style="vertical-align: middle">
+          <td v-for="period in schedule.periods" :key="period.id" class="align-middle" width="12.5%" style="vertical-align: middle" >
             <CardScheduleDetails :card="getCard(period.id, day.id)" />
           </td>
         </tr>
@@ -25,6 +25,7 @@
     </table>
 
   </div>
+  
 </template>
 <script lang="ts">
 import Vue from "vue";
@@ -38,6 +39,7 @@ import { BASE_URL } from "@/utils/config"
 export default Vue.extend({
   data() {
     return {
+       
       id: "",
       schedule: {} as types.Schedule,
     };
@@ -59,6 +61,8 @@ export default Vue.extend({
       }
     },
     formatPeriod,
+  
+            
   },
   components: { CardScheduleDetails },
 });

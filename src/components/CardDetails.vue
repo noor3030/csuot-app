@@ -1,5 +1,5 @@
 <template>
-  <v-card flat class="px-5 mt-16" outlined style="border-color: var(--outline)" color="var(--surface-background)">
+  <v-card flat class="px-5 mt-16 " outlined style="border-color: var(--outline);" color="var(--surface-background)">
     <h1 style="text-align: end">الاحد</h1>
     <p style="text-align: end">08:30 - 10:30</p>
     <v-container class="container"
@@ -28,5 +28,6 @@ p {
 }
 p {
   font-size: 20px;
+ 
 }
 </style>
