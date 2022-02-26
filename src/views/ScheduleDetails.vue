@@ -41,6 +41,8 @@ import types from "@/CardTypes";
 import formatPeriod from "@/utils/DateTimeUtils";
 import CardScheduleDetails from "@/components/CardScheduleDetails.vue";
 import CardDetails from "@/components/CardDetails.vue";
+import {BASE_URL} from "@/utils/config"
+
 export default Vue.extend({
   data() {
     return {
@@ -51,7 +53,7 @@ export default Vue.extend({
   created() {
     this.id = this.$route.params.id;
     axios
-      .get(`https://csuot.herokuapp.com/v1/schedule/?stage_id=${this.id}`)
+      .get(`${BASE_URL}/schedule/?stage_id=${this.id}`)
       .then((response) => {
         this.schedule = response.data;
 
