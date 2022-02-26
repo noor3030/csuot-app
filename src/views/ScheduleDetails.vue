@@ -51,7 +51,7 @@ export default Vue.extend({
   created() {
     this.id = this.$route.params.id;
     axios
-      .get(`https://csuot.herokuapp.com/v1/schedule/stage/${this.id}`)
+      .get(`https://csuot.herokuapp.com/v1/schedule/?stage_id=${this.id}`)
       .then((response) => {
         this.schedule = response.data;
 
