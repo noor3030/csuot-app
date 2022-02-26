@@ -26,7 +26,7 @@
 	--inverse-surface : #e4e2e6;
 	--inverse-primary : #2c5daa;
 	--shadow : #000000;
-	--surface-background: --surface
+	--surface-background:  #44474f
 }
 .light {
 	--primary : #2c5daa;
@@ -56,5 +56,5 @@
 	--inverse-surface : #2f3033;
 	--inverse-primary : #abc7ff;
 	--shadow : #000000;
-	--surface-background: var(--background);
+	--surface-background: #fdfbff;
 }

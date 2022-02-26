@@ -2,13 +2,13 @@
   <v-card flat class="px-5 mt-16 " outlined style="border-color: var(--outline);" color="var(--surface-background)">
     <h1 style="text-align: end">الاحد</h1>
     <p style="text-align: end">08:30 - 10:30</p>
-    <v-container class="container">
-      <h2 style="text-align: center; color: var(--on-primary-container)">
-      {{card.lesson.subject.name}}
+    <v-container class="container" :style="{ 'background-color': card.lesson.teacher.color_light}">
+      <h2 style="text-align: center; color:#000000">
+        {{card.lesson.subject.name}}
       </h2>
     </v-container>
-    <p style="text-align: end">استاذ احمد طارق</p>
-    <p style="text-align: end">قاعة 3</p>
+    <p style="text-align: end">{{card.lesson.teacher.name}}</p>
+    <p style="text-align: end">{{card.lesson.room.name}}</p>
   </v-card>
 </template>
 <script lang="ts">
@@ -29,7 +29,6 @@ p {
   color: var(--on-surface);
 }
 .container {
-  background-color: var(--primary-container);
   border-radius: 28px;
 }
 p {
