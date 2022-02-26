@@ -1,35 +1,29 @@
 <template>
-  
-   
-      <div class="table-responsive">
-        <table class="table table-bordered align-middle mt-16">
-          <thead>
-            <tr>
 
-              <th scope="col"></th>
-              <th v-for="period in schedule.periods" :key="period.id" scope="col" class="align-middle">
-                {{ formatPeriod(period.start_time) }} -
-                {{ formatPeriod(period.end_time) }}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="day in schedule.days" :key="day.id">
-              <td class="align-middle">
-                <h2>{{ day.name }}</h2>
-              </td>
-              <td v-for="period in schedule.periods" :key="period.id" class="align-middle" width="12.5%" style="vertical-align: middle">
-                <CardScheduleDetails :card="getCard(period.id, day.id)" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+  <div class="table-responsive">
+    <table class="table table-bordered align-middle mt-16">
+      <thead>
+        <tr>
 
-     
+          <th scope="col"></th>
+          <th v-for="period in schedule.periods" :key="period.id" scope="col" class="align-middle">
+            {{ formatPeriod(period.start_time) }} -
+            {{ formatPeriod(period.end_time) }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="day in schedule.days" :key="day.id">
+          <td class="align-middle">
+            <h2>{{ day.name }}</h2>
+          </td>
+          <td v-for="period in schedule.periods" :key="period.id" class="align-middle" width="12.5%" style="vertical-align: middle">
+            <CardScheduleDetails :card="getCard(period.id, day.id)" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-     
-    
-   
   </div>
 </template>
 <script lang="ts">
@@ -39,7 +33,7 @@ import types from "@/CardTypes";
 import formatPeriod from "@/utils/DateTimeUtils";
 import CardScheduleDetails from "@/components/CardScheduleDetails.vue";
 
-import {BASE_URL} from "@/utils/config"
+import { BASE_URL } from "@/utils/config"
 
 export default Vue.extend({
   data() {
@@ -83,7 +77,6 @@ tr {
   min-height: 20px;
   height: 20px;
 }
-
 
 tr td {
   padding: 0 !important;
