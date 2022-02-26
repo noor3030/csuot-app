@@ -1,9 +1,10 @@
 <template>
-<div>
-   <button rounded class="mr-2 download-btn px-4 py-2">
-        <v-icon class="pr-2" color="var(--primary)">mdi-tray-arrow-down</v-icon>
-        Download
-      </button></div>
+  <div>
+    <button class=" download-btn px-4 py-2 float-right">
+      <v-icon class="pr-2" color="var(--primary)">mdi-tray-arrow-down</v-icon>
+      Download
+    </button>
+  </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'

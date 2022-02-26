@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar px-5 fixed-top" :class="{ change_color: scrollPosition > 50 }" v-scroll="handleScroll">
+  <nav class="navbar px-7 fixed-top" :class="{ change_color: scrollPosition > 50 }" v-scroll="handleScroll">
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-8 col-centered">
         <div class="maintxt">

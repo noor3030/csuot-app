@@ -1,6 +1,6 @@
 <template>
-  <div class="row px-7">
-    <div class="col-9">
+  
+   
       <div class="table-responsive">
         <table class="table table-bordered align-middle mt-16">
           <thead>
@@ -25,13 +25,11 @@
           </tbody>
         </table>
 
-      </div>
+     
 
      
-    </div>
-    <div class="col-3">
-      <CardDetails />
-    </div>
+    
+   
   </div>
 </template>
 <script lang="ts">
@@ -40,7 +38,7 @@ import axios from "axios";
 import types from "@/CardTypes";
 import formatPeriod from "@/utils/DateTimeUtils";
 import CardScheduleDetails from "@/components/CardScheduleDetails.vue";
-import CardDetails from "@/components/CardDetails.vue";
+
 import {BASE_URL} from "@/utils/config"
 
 export default Vue.extend({
@@ -68,7 +66,7 @@ export default Vue.extend({
     },
     formatPeriod,
   },
-  components: { CardScheduleDetails, CardDetails },
+  components: { CardScheduleDetails },
 });
 </script>
 <style lang="scss" scoped>
