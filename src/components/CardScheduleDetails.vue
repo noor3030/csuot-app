@@ -1,6 +1,5 @@
 <template>
-  <div @click="clicked" class="d-flex align-items-center flex-column card-div justify-content-between" v-if="card != null" 
-  :style="{ 'background-color': card.lesson.teacher.color_light }">
+  <div @click="clicked" class="d-flex align-items-center flex-column card-div justify-content-between" v-if="card != null" :style="{ 'background-color': card.lesson.teacher.color_light}">
     <div class="pt-2">{{ card.lesson.subject.name }}</div>
     <div v-if="card.lesson.room_id != null">
       <b>
@@ -21,10 +20,16 @@ export default Vue.extend({
     card: {
       type: Object,
     },
+    period: {
+      type: Object
+    },
+    day: {
+      type: Object
+    }
   },
   methods: {
     clicked() {
-      this.$emit("clicked", this.card)
+      this.$emit("clicked", this.card, this.day, this.period)
     }
   }
 });

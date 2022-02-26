@@ -1,34 +1,34 @@
 <template>
   <div class="row px-7 py-5">
-     <div class="col-9">
-    <div class="table-responsive">
-      <table class="table table-bordered align-middle mt-16">
-        <thead>
-          <tr>
+    <div class="col-9">
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle mt-16">
+          <thead>
+            <tr>
 
-            <th scope="col"></th>
-            <th v-for="period in schedule.periods" :key="period.id" scope="col" class="align-middle">
-              {{ formatPeriod(period.start_time) }} -
-              {{ formatPeriod(period.end_time) }}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="day in schedule.days" :key="day.id">
-            <td class="align-middle">
-              <h2>{{ day.name }}</h2>
-            </td>
-            <td v-for="period in schedule.periods" :key="period.id" class="align-middle" width="12.5%" style="vertical-align: middle">
-              <CardScheduleDetails :card="getCard(period.id, day.id)" @clicked="onCardClick" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-     <FabDownload />
+              <th scope="col"></th>
+              <th v-for="period in schedule.periods" :key="period.id" scope="col" class="align-middle">
+                {{ formatPeriod(period.start_time) }} -
+                {{ formatPeriod(period.end_time) }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="day in schedule.days" :key="day.id">
+              <td class="align-middle">
+                <h2>{{ day.name }}</h2>
+              </td>
+              <td v-for="period in schedule.periods" :key="period.id" class="align-middle" width="12.5%" style="vertical-align: middle">
+                <CardScheduleDetails :card="getCard(period.id, day.id)" :period="period" :day="day" @clicked="onCardClick" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <FabDownload />
     </div>
     <div class="col-3">
-      <CardDetails :card ="selectedCard"/>
+      <CardDetails :card="selectedCard" :day="selectedDay" :period="selectedPeriod" />
     </div>
   </div>
 </template>
@@ -48,6 +48,8 @@ export default Vue.extend({
 
       id: "",
       selectedCard: null,
+      selectedDay: null,
+      selectedPeriod: null,
       schedule: {} as types.Schedule,
     };
   },
@@ -68,17 +70,18 @@ export default Vue.extend({
       }
     },
 
-    onCardClick(card: any) {
+    onCardClick(card: any, day: any, period: any) {
       console.log(card);
-
       this.selectedCard = card;
+      this.selectedDay = day;
+      this.selectedPeriod = period;
     },
 
     formatPeriod,
 
 
   },
-  components: { CardScheduleDetails , CardDetails, FabDownload},
+  components: { CardScheduleDetails, CardDetails, FabDownload },
 });
 </script>
 <style lang="scss" scoped>

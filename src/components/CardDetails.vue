@@ -1,7 +1,8 @@
 <template>
   <v-card flat class="px-5 mt-16 " outlined style="border-color: var(--outline);" color="var(--surface-background)">
-    <h1 style="text-align: end">الاحد</h1>
-    <p style="text-align: end">08:30 - 10:30</p>
+    <h1 style="text-align: end">{{ day.name }}</h1>
+    <p style="text-align: end"> {{ formatPeriod(period.start_time) }} -
+      {{ formatPeriod(period.end_time) }}</p>
     <v-container class="container" :style="{ 'background-color': card.lesson.teacher.color_light}">
       <h2 style="text-align: center; color:#000000">
         {{card.lesson.subject.name}}
@@ -13,12 +14,22 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
+import formatPeriod from "@/utils/DateTimeUtils";
 export default Vue.extend({
   props: {
     card: {
       type: Object
+    },
+    period: {
+      type: Object
+    },
+    day: {
+      type: Object
     }
-  }
+  },
+  methods: {
+     formatPeriod,
+  },
 });
 </script>
 <style scoped>
