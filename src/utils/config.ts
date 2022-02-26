@@ -1,3 +1,8 @@
 import dotenv from "dotenv";
 
-export const BASE_URL = process.env.BASE_URL as string;
+dotenv.config({
+    path: '.env'
+});
+
+
+export const BASE_URL = process.env.VUE_APP_BASE_URL as string;
