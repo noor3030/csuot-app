@@ -21,7 +21,8 @@ import Footer from "@/components/Footer.vue";
 export default Vue.extend({
   name: "App",
   data: () => ({
-    currentTheme: localStorage.getItem("theme-color") || "light"
+    currentTheme: localStorage.getItem("theme-color") || "light",
+    
   }),
   components: { Navbar, Footer },
 });

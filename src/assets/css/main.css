@@ -26,7 +26,8 @@
 	--inverse-surface : #e4e2e6;
 	--inverse-primary : #2c5daa;
 	--shadow : #000000;
-	--surface-background:  #44474f
+	--surface-background:  #44474f;
+	--select:#BDBDBD
 }
 .light {
 	--primary : #2c5daa;
@@ -57,4 +58,12 @@
 	--inverse-primary : #abc7ff;
 	--shadow : #000000;
 	--surface-background: #fdfbff;
+	--select: var(--surface-background)
+}
+
+.v-select__selection,
+.v-list-item__title,
+.mdi-menu-down,
+.v-label{
+	color: var(--on-surface)!important;
 }

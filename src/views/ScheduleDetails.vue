@@ -15,7 +15,7 @@
           </thead>
           <tbody>
             <tr v-for="day in schedule.days" :key="day.id">
-              <td class="align-middle">
+              <td class="align-middle" width="12.5%">
                 <h2>{{ day.name }}</h2>
               </td>
               <td v-for="period in schedule.periods" :key="period.id" class="align-middle" width="12.5%" style="vertical-align: middle">
@@ -29,7 +29,15 @@
     </div>
     <div class="col-3">
       <CardDetails :card="selectedCard" :day="selectedDay" :period="selectedPeriod" />
+      <div class="pt-5">
+        <v-select :items="schedules.stages" label="Stage" item-text="name" item-value="id" v-on:change="changeStageId" filled    
+        color="var(--on-surface-variant)" background-color="var(--surface-background)" item-color="var(--on-surface-variant)"
+        class="select-item-text">
+      </v-select>
+
+      </div>
     </div>
+
   </div>
 </template>
 <script lang="ts">
@@ -51,6 +59,7 @@ export default Vue.extend({
       selectedDay: null,
       selectedPeriod: null,
       schedule: {} as types.Schedule,
+      schedules: {} as types.Schedule,
     };
   },
   created() {
@@ -60,7 +69,13 @@ export default Vue.extend({
       .then((response) => {
         this.schedule = response.data;
 
-        console.log(this.schedule.periods);
+
+      });
+    axios
+      .get("https://csuot.herokuapp.com/v1/schedule/all")
+      .then((response) => {
+        this.schedules = response.data;
+
       });
   },
   methods: {
@@ -69,9 +84,12 @@ export default Vue.extend({
         if (card.period_id === period_id && card.day_id === day_id) return card;
       }
     },
+    changeStageId(id: string) {
+      this.id = id;
+    },
 
     onCardClick(card: any, day: any, period: any) {
-      console.log(card);
+
       this.selectedCard = card;
       this.selectedDay = day;
       this.selectedPeriod = period;
@@ -123,4 +141,11 @@ table.table-bordered > tbody > tr > td {
 tbody {
   border-top: 1px !important;
 }
+.v-list{
+  background-color: var(--surface-background)!important; 
+}
+
+
+
+
 </style>
