@@ -72,9 +72,11 @@ declare module types {
     }
 
     export interface Schedule {
+
         cards: Card[];
         days: Day[];
         periods: Period[];
+        stage : Stage
     }
 
 

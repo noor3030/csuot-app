@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar px-7 fixed-top" :class="{ change_color: scrollPosition > 50 }" v-scroll="handleScroll">
+  <nav class="navbar px-7 fixed-top " :class="{ change_color: scrollPosition > 50 }" v-scroll="handleScroll">
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-8 col-centered">
         <div class="maintxt">
@@ -8,9 +8,7 @@
         </div>
       </div>
     </div>
-    <div>
-      <h2 style="color: var(--on-surface-variant);">{{ schedule.stage.name }}</h2>
-    </div>
+  
     <v-spacer></v-spacer>
     <div class="form-check form-switch">
       <v-btn icon @click="switchTheme">
@@ -29,13 +27,14 @@
 <style >
 @import url("https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans:wght@200&family=Outfit&family=Tajawal:wght@500&display=swap");
 
-span ,h2{
+span,
+h2 {
   font-family: "Tajawal", sans-serif !important;
- 
+
   color: var(--on-background);
 }
-span{
-   font-size: 25px;
+span {
+  font-size: 25px;
 }
 .telegram-btn {
   font-family: "Tajawal", sans-serif !important;
@@ -50,26 +49,15 @@ span{
 </style>
 <script lang="ts">
 import Vue from "vue";
-import { BASE_URL } from "@/utils/config"
-import axios from "axios";
-import types from "@/CardTypes";
+
+
 export default Vue.extend({
   data() {
     return {
       scrollPosition: null as any,
       currentTheme: localStorage.getItem("theme-color") || "light",
-      id: "",
-      schedule: {} as types.Schedule,
+      stage: JSON.parse(localStorage.getItem("stage")!)
     };
-  },
-  created() {
-    this.id = this.$route.params.id;
-    axios
-      .get(`${BASE_URL}/schedule/?stage_id=${this.id}`)
-      .then((response) => {
-        this.schedule = response.data;
-
-      });
   },
   methods: {
     updateScroll() {

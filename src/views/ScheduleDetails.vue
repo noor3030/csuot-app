@@ -1,8 +1,19 @@
 <template>
-  <div class="row px-7 py-5">
-    <div class="col-9">
+  <div class="row px-7 py-15">
+    <div class="col-lg-3 col-sm-12 ">
+      <CardDetails :card="selectedCard" :day="selectedDay" :period="selectedPeriod" />
+      <div class="pt-5">
+        <v-select :items="schedules.stages" label="Stage" item-text="name" item-value="id" v-on:change="getSchedule" filled color="var(--on-surface-variant)" background-color="var(--surface-background)" item-color="var(--on-surface-variant)" class="select-item-text">
+        </v-select>
+
+      </div>
+    </div>
+    <div class="col-lg-9 col-sm-12">
+
+      <h2 style="color: var(--on-background);">{{ stage.name }}</h2>
+
       <div class="table-responsive">
-        <table class="table table-bordered align-middle mt-16">
+        <table class="table table-bordered align-middle ">
           <thead>
             <tr>
 
@@ -15,27 +26,18 @@
           </thead>
           <tbody>
             <tr v-for="day in schedule.days" :key="day.id">
-              <td class="align-middle" width="12.5%">
+              <td class="align-middle td-width" width="12.5%">
                 <h2>{{ day.name }}</h2>
               </td>
-              <td v-for="period in schedule.periods" :key="period.id" class="align-middle" width="12.5%" style="vertical-align: middle">
+              <td v-for="period in schedule.periods" :key="period.id" width="12.5%" class="align-middle td-width" style="vertical-align: middle">
                 <CardScheduleDetails :card="getCard(period.id, day.id)" :period="period" :day="day" @clicked="onCardClick" />
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <FabDownload />
-    </div>
-    <div class="col-3">
-      <CardDetails :card="selectedCard" :day="selectedDay" :period="selectedPeriod" />
-      <div class="pt-5">
-        <v-select :items="schedules.stages" label="Stage" item-text="name" item-value="id" v-on:change="changeStageId" filled    
-        color="var(--on-surface-variant)" background-color="var(--surface-background)" item-color="var(--on-surface-variant)"
-        class="select-item-text">
-      </v-select>
 
-      </div>
+      <FabDownload />
     </div>
 
   </div>
@@ -53,7 +55,7 @@ import { BASE_URL } from "@/utils/config"
 export default Vue.extend({
   data() {
     return {
-
+      stage: {} as types.Stage,
       id: "",
       selectedCard: null,
       selectedDay: null,
@@ -64,15 +66,10 @@ export default Vue.extend({
   },
   created() {
     this.id = this.$route.params.id;
-    axios
-      .get(`${BASE_URL}/schedule/?stage_id=${this.id}`)
-      .then((response) => {
-        this.schedule = response.data;
+    this.getSchedule(this.id);
 
-
-      });
     axios
-      .get("https://csuot.herokuapp.com/v1/schedule/all")
+      .get(`{BAS}/schedule/all`)
       .then((response) => {
         this.schedules = response.data;
 
@@ -84,9 +81,16 @@ export default Vue.extend({
         if (card.period_id === period_id && card.day_id === day_id) return card;
       }
     },
-    changeStageId(id: string) {
-      this.id = id;
+    getSchedule(id: string) {
+      axios
+        .get(`${BASE_URL}/schedule/?stage_id=${id}`)
+        .then((response) => {
+          this.schedule = response.data;
+          this.stage = this.schedule.stage
+          localStorage.setItem("stage", JSON.stringify(this.stage))
+        });
     },
+
 
     onCardClick(card: any, day: any, period: any) {
 
@@ -141,11 +145,13 @@ table.table-bordered > tbody > tr > td {
 tbody {
   border-top: 1px !important;
 }
-.v-list{
-  background-color: var(--surface-background)!important; 
+.v-list {
+  background-color: var(--surface-background) !important;
 }
 
-
-
-
+@media (max-width: 800px) {
+  .td-width {
+    min-width: 150px !important;
+  }
+}
 </style>
