@@ -1,16 +1,17 @@
 <template>
-  <div class="row px-7 py-15">
+  <div class="row px-7 py-14">
     <div class="col-lg-3 col-sm-12 ">
-      <CardDetails :card="selectedCard" :day="selectedDay" :period="selectedPeriod" />
+   
+      <CardDetails :card="selectedCard" :day="selectedDay" :period="selectedPeriod" class="test"/>
       <div class="pt-5">
         <v-select :items="schedules.stages" label="Stage" item-text="name" item-value="id" v-on:change="getSchedule" filled color="var(--on-surface-variant)" background-color="var(--surface-background)" item-color="var(--on-surface-variant)" class="select-item-text">
         </v-select>
 
       </div>
     </div>
-    <div class="col-lg-9 col-sm-12">
+    <div class="col-lg-9 col-sm-12 " >
 
-      <h2 style="color: var(--on-background);">{{ stage.name }}</h2>
+      <p style="color: var(--on-background); font-size:40px;">{{ stage.name }}</p>
 
       <div class="table-responsive">
         <table class="table table-bordered align-middle ">
@@ -110,7 +111,7 @@ export default Vue.extend({
 @import url("https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans:wght@200&family=Outfit&family=Tajawal:wght@500&display=swap");
 
 h2,
-th {
+th ,p{
   font-family: "Tajawal", sans-serif !important;
   text-align: center;
   color: var(--on-background);
@@ -153,5 +154,9 @@ tbody {
   .td-width {
     min-width: 150px !important;
   }
+}
+.test{
+   margin-top: 75px;
+  position: relative;
 }
 </style>

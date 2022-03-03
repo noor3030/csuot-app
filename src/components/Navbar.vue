@@ -20,7 +20,7 @@
 
     <button type="button" class="telegram-btn px-4 py-2" @click="telegramBot">
       open telegram bot
-      <v-icon color="var(--on-tertiary)">mdi-arrow-right-thin</v-icon>
+      <v-icon color="var(--primary)">mdi-arrow-right-thin</v-icon>
     </button>
   </nav>
 </template>
@@ -38,9 +38,9 @@ span {
 }
 .telegram-btn {
   font-family: "Tajawal", sans-serif !important;
-  background-color: var(--tertiary);
+  background-color: var(--primary-container);
   border-radius: 28px;
-  color: var(--on-tertiary) !important;
+  color: var(--primary) !important;
 }
 
 .change_color {
