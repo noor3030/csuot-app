@@ -3,7 +3,8 @@
     <div class="container p-4">
       <div class="row">
         <div class="maintxt">
-          <img src="../assets/p2.png" width="50" class="mr-2" />
+          <img v-if="changeTheme == 'light' " src="../assets/light.png" width="50" class="mr-2" />
+          <img v-else src="../assets/dark.png" alt="" width="50" class="mr-2" />
         </div>
       </div>
       <div class="row">
@@ -30,7 +31,17 @@
     </div>
   </footer>
 </template>
-
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
+  
+ computed: {
+    changeTheme() {
+      return this.$store.state.currentTheme
+     
+    },}
+})
+</script>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans:wght@200&family=Outfit&family=Tajawal:wght@500&display=swap");
 p,

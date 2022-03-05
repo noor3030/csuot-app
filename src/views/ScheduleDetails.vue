@@ -1,15 +1,15 @@
 <template>
   <div class="row px-7 py-14">
     <div class="col-lg-3 col-sm-12 ">
-   
-      <CardDetails :card="selectedCard" :day="selectedDay" :period="selectedPeriod" class="test"/>
+
+      <CardDetails :card="selectedCard" :day="selectedDay" :period="selectedPeriod" class="test" />
       <div class="pt-5">
         <v-select :items="schedules.stages" label="Stage" item-text="name" item-value="id" v-on:change="getSchedule" filled color="var(--on-surface-variant)" background-color="var(--surface-background)" item-color="var(--on-surface-variant)" class="select-item-text">
         </v-select>
 
       </div>
     </div>
-    <div class="col-lg-9 col-sm-12 " >
+    <div class="col-lg-9 col-sm-12 ">
 
       <p style="color: var(--on-background); font-size:40px;">{{ stage.name }}</p>
 
@@ -70,7 +70,7 @@ export default Vue.extend({
     this.getSchedule(this.id);
 
     axios
-      .get(`{BAS}/schedule/all`)
+      .get(`${BASE_URL}/schedule/all`)
       .then((response) => {
         this.schedules = response.data;
 
@@ -111,7 +111,8 @@ export default Vue.extend({
 @import url("https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans:wght@200&family=Outfit&family=Tajawal:wght@500&display=swap");
 
 h2,
-th ,p{
+th,
+p {
   font-family: "Tajawal", sans-serif !important;
   text-align: center;
   color: var(--on-background);
@@ -155,8 +156,8 @@ tbody {
     min-width: 150px !important;
   }
 }
-.test{
-   margin-top: 75px;
+.test {
+  margin-top: 75px;
   position: relative;
 }
 </style>
