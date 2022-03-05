@@ -3,7 +3,12 @@
     <div class="container p-4">
       <div class="row">
         <div class="maintxt">
-          <img v-if="changeTheme == 'light' " src="../assets/light.png" width="50" class="mr-2" />
+          <img
+            v-if="changeTheme == 'light'"
+            src="../assets/light.png"
+            width="50"
+            class="mr-2"
+          />
           <img v-else src="../assets/dark.png" alt="" width="50" class="mr-2" />
         </div>
       </div>
@@ -19,11 +24,14 @@
         <a href="" class="link">Main website</a>
         <a href="https://www.uotechnology.edu.iq/" class="link">UOT website</a>
       </section>
-      <v-divider style="color:var(--outline);"></v-divider>
+      <v-divider style="color: var(--outline)"></v-divider>
       <v-row>
         <p style="color: var(--on-secondary-container)">
           <b>By: @Constroctor Team</b
-          ><a href="https://t.me/CsUotBot" class="pl-3" style="color: var(--on-secondary-container)"
+          ><a
+            href="https://t.me/CsUotBot"
+            class="pl-3"
+            style="color: var(--on-secondary-container)"
             ><b>Telegram</b></a
           >
         </p>
@@ -32,15 +40,14 @@
   </footer>
 </template>
 <script lang="ts">
-import Vue from 'vue'
+import Vue from "vue";
 export default Vue.extend({
-  
- computed: {
+  computed: {
     changeTheme() {
-      return this.$store.state.currentTheme
-     
-    },}
-})
+      return this.$store.state.currentTheme;
+    },
+  },
+});
 </script>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans:wght@200&family=Outfit&family=Tajawal:wght@500&display=swap");

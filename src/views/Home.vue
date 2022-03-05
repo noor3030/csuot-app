@@ -1,82 +1,183 @@
 <template>
-  <v-container style="height: 100%; width: 100%">
-    <v-select
-      v-model="stage"
-      :items="schedule.stages"
-      label="Stage"
-      item-text="name"
-      return-object
-      v-on:change="changeStage"
-    ></v-select>
+  <div class="row px-7 py-14">
+    <div class="col-lg-3 col-sm-12">
+      <CardDetails
+        :card="selectedCard"
+        :day="selectedDay"
+        :period="selectedPeriod"
+        class="test"
+      />
+      <div class="pt-5">
+        <v-select
+          :items="schedules.stages"
+          label="Stage"
+          item-text="name"
+          item-value="id"
+          v-on:change="getSchedule"
+          filled
+          color="var(--on-surface-variant)"
+          background-color="var(--surface-background)"
+          item-color="var(--on-surface-variant)"
+          class="select-item-text"
+        >
+        </v-select>
+      </div>
+    </div>
+    <div class="col-lg-9 col-sm-12">
+      <p style="color: var(--on-background); font-size: 40px">
+        {{ stage.name }}
+      </p>
 
-    <table height="80%">
-     
-      <tbody>
-        <tr v-for="day in schedule.days" :key="day.id">
-          <td>{{ day.name }}</td>
-          <td v-for="period in schedule.periods" :key="period.id">
-            <CardSchedule
-              v-if="getCard(period.id, day.id) != null"
-              :card="getCard(period.id, day.id)"
-              :teachers="schedule.teachers"
-              :subjects="schedule.subjects"
-            />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </v-container>
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th
+                v-for="period in schedule.periods"
+                :key="period.id"
+                scope="col"
+                class="align-middle"
+              >
+                {{ formatPeriod(period.start_time) }} -
+                {{ formatPeriod(period.end_time) }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="day in schedule.days" :key="day.id">
+              <td class="align-middle td-width" width="12.5%">
+                <h2>{{ day.name }}</h2>
+              </td>
+              <td
+                v-for="period in schedule.periods"
+                :key="period.id"
+                width="12.5%"
+                class="align-middle td-width"
+                style="vertical-align: middle"
+              >
+                <CardScheduleDetails
+                  :card="getCard(period.id, day.id)"
+                  :period="period"
+                  :day="day"
+                  @clicked="onCardClick"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <FabDownload />
+    </div>
+  </div>
 </template>
 <script lang="ts">
 import Vue from "vue";
 import axios from "axios";
-import types from "@/ScheduleType";
-import CardSchedule from "@/components/CardSchedule.vue";
+import types from "@/CardTypes";
+import formatPeriod from "@/utils/DateTimeUtils";
+import CardDetails from "@/components/CardDetails.vue";
+import CardScheduleDetails from "@/components/CardScheduleDetails.vue";
+import FabDownload from "@/components/FabDownload.vue";
+import { BASE_URL } from "@/utils/config";
+
 export default Vue.extend({
   data() {
     return {
-      schedule: {} as types.Schedule,
-
       stage: {} as types.Stage,
+      id: "",
+      selectedCard: null,
+      selectedDay: null,
+      selectedPeriod: null,
+      schedule: {} as types.Schedule,
+      schedules: {} as any,
     };
   },
-  async created() {
-    await axios
-      .get("https://csuot.herokuapp.com/v1/schedule/")
-      .then((response) => {
-        this.schedule = response.data as types.Schedule;
-        this.changeStage(this.schedule.stages[0]);
-      });
+  created() {
+    this.id = this.$route.params.id;
+    this.getSchedule(this.id);
+
+    axios.get(`${BASE_URL}/schedule/all`).then((response) => {
+      this.schedules = response.data;
+    });
   },
   methods: {
     getCard(period_id: string, day_id: string) {
       for (let card of this.schedule.cards) {
-        let lesson = this.getLesson(card.lesson_id);
+        if (card.period_id === period_id && card.day_id === day_id) return card;
+      }
+    },
+    getSchedule(id: string) {
+      axios.get(`${BASE_URL}/schedule/?stage_id=${id}`).then((response) => {
+        this.schedule = response.data;
+        this.stage = this.schedule.stage;
+        localStorage.setItem("stage", JSON.stringify(this.stage));
+      });
+    },
 
-        if (
-          card.period_id === period_id &&
-          card.day_id === day_id &&
-          lesson?.stages.includes([{ id: this.stage.id }])
-        ) {
-          card.lesson = lesson;
-        
-          return card;
-        }
-      }
+    onCardClick(card: any, day: any, period: any) {
+      this.selectedCard = card;
+      this.selectedDay = day;
+      this.selectedPeriod = period;
     },
-    getLesson(id: string) {
-      for (let lesson of this.schedule.lessons) {
-        if (lesson.id == id) {
-          
-          return lesson;
-        }
-      }
-    },
-    changeStage(stage: types.Stage) {
-      this.stage = stage;
-    },
+
+    formatPeriod,
   },
-  components: { CardSchedule },
+  components: { CardScheduleDetails, CardDetails, FabDownload },
 });
 </script>
+<style lang="scss" scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans:wght@200&family=Outfit&family=Tajawal:wght@500&display=swap");
 
+h2,
+th,
+p {
+  font-family: "Tajawal", sans-serif !important;
+  text-align: center;
+  color: var(--on-background);
+}
+tr {
+  line-height: 20px;
+  min-height: 20px;
+  height: 20px;
+}
+
+tr td {
+  padding: 0 !important;
+  margin: 0 !important;
+  text-align: center;
+}
+td {
+  height: 110px;
+}
+table {
+  background-color: var(--surface-background);
+}
+table.table-bordered {
+  border-color: var(--outline);
+}
+table.table-bordered > thead > tr > th {
+  border-color: var(--outline);
+}
+
+table.table-bordered > tbody > tr > td {
+  border-color: var(--outline);
+}
+tbody {
+  border-top: 1px !important;
+}
+.v-list {
+  background-color: var(--surface-background) !important;
+}
+
+@media (max-width: 800px) {
+  .td-width {
+    min-width: 150px !important;
+  }
+}
+.test {
+  margin-top: 75px;
+  position: relative;
+}
+</style>

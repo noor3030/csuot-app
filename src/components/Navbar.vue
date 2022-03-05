@@ -1,9 +1,18 @@
 <template>
-  <nav class="navbar px-7 fixed-top " :class="{ change_color: scrollPosition > 50 }" v-scroll="handleScroll">
+  <nav
+    class="navbar px-7 fixed-top"
+    :class="{ change_color: scrollPosition > 50 }"
+    v-scroll="handleScroll"
+  >
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-8 col-centered">
         <div class="maintxt">
-          <img v-if="changeTheme == 'light' " src="../assets/light.png" width="50" class="mr-2" />
+          <img
+            v-if="changeTheme == 'light'"
+            src="../assets/light.png"
+            width="50"
+            class="mr-2"
+          />
           <img v-else src="../assets/dark.png" alt="" width="50" class="mr-2" />
           <span class="overlay-text">computer science</span>
         </div>
@@ -13,10 +22,10 @@
     <v-spacer></v-spacer>
     <div class="form-check form-switch">
       <v-btn icon @click="changeTheme2">
-        <v-icon color="var(--secondary)">{{ changeTheme == 'light'? 'mdi-lightbulb' : 'mdi-lightbulb-outline'}}</v-icon>
-
+        <v-icon color="var(--secondary)">{{
+          changeTheme == "light" ? "mdi-lightbulb" : "mdi-lightbulb-outline"
+        }}</v-icon>
       </v-btn>
-
     </div>
 
     <button type="button" class="telegram-btn px-4 py-2" @click="telegramBot">
@@ -51,32 +60,26 @@ span {
 <script lang="ts">
 import Vue from "vue";
 
-
 export default Vue.extend({
   data() {
     return {
       scrollPosition: null as any,
 
-      stage: JSON.parse(localStorage.getItem("stage")!)
+      stage: JSON.parse(localStorage.getItem("stage")!),
     };
   },
   mounted() {
     window.addEventListener("scroll", this.updateScroll);
-
-
   },
   computed: {
     changeTheme() {
-      return this.$store.state.currentTheme
-     
+      return this.$store.state.currentTheme;
     },
-    
   },
 
   methods: {
-
-changeTheme2() {
-      this.$store.commit('switchTheme')
+    changeTheme2() {
+      this.$store.commit("switchTheme");
     },
     updateScroll() {
       this.scrollPosition = window.scrollY;
@@ -84,8 +87,7 @@ changeTheme2() {
 
     telegramBot() {
       location.href = "https://t.me/CsUotBot";
-    }
+    },
   },
-
 });
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p v-if="card.lesson.teacher_id !=null">
+    <p v-if="card.lesson.teacher_id != null">
       {{ getTeacher(card.lesson.teacher_id).name }}
     </p>
     <p>

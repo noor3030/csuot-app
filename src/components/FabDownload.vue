@@ -1,16 +1,14 @@
 <template>
   <div>
-    <button class=" download-btn px-4 py-2 ">
+    <button class="download-btn px-4 py-2">
       <v-icon class="pr-2" color="var(--primary)">mdi-tray-arrow-down</v-icon>
       Download
     </button>
   </div>
 </template>
 <script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
-
-})
+import Vue from "vue";
+export default Vue.extend({});
 </script>
 <style>
 .download-btn {
