@@ -9,7 +9,7 @@
             width="50"
             class="mr-2"
           />
-          <img v-else src="../assets/dark.png" alt="" width="50" class="mr-2" />
+          <img v-else src="../assets/dark.png" alt="" width="30" class="mr-2" />
         </div>
       </div>
       <div class="row">

@@ -10,7 +10,7 @@
       <div class="pt-5">
         <v-select
           :items="schedules.stages"
-          label="Stage"
+          :label="schedule.stage.name"
           item-text="name"
           item-value="id"
           v-on:change="getSchedule"
@@ -25,7 +25,7 @@
     </div>
     <div class="col-lg-9 col-sm-12">
       <p style="color: var(--on-background); font-size: 40px">
-        {{ stage.name }}
+        {{ schedule.stage.name }}
       </p>
 
       <div class="table-responsive">
@@ -95,9 +95,9 @@ export default Vue.extend({
     };
   },
   created() {
+    this.schedule = JSON.parse(localStorage.getItem("my last schedule")!);
     this.id = this.$route.params.id;
     this.getSchedule(this.id);
-
     axios.get(`${BASE_URL}/schedule/all`).then((response) => {
       this.schedules = response.data;
     });
@@ -112,7 +112,7 @@ export default Vue.extend({
       axios.get(`${BASE_URL}/schedule/?stage_id=${id}`).then((response) => {
         this.schedule = response.data;
         this.stage = this.schedule.stage;
-        localStorage.setItem("stage", JSON.stringify(this.stage));
+        localStorage.setItem("my last schedule", JSON.stringify(this.schedule));
       });
     },
 

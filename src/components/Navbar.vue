@@ -2,7 +2,6 @@
   <nav
     class="navbar px-7 fixed-top"
     :class="{ change_color: scrollPosition > 50 }"
-    v-scroll="handleScroll"
   >
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-8 col-centered">
@@ -13,7 +12,7 @@
             width="50"
             class="mr-2"
           />
-          <img v-else src="../assets/dark.png" alt="" width="50" class="mr-2" />
+          <img v-else src="../assets/dark.png" alt="" width="30" class="mr-2" />
           <span class="overlay-text">computer science</span>
         </div>
       </div>
@@ -21,7 +20,7 @@
 
     <v-spacer></v-spacer>
     <div class="form-check form-switch">
-      <v-btn icon @click="changeTheme2">
+      <v-btn icon @click="switchTheme">
         <v-icon color="var(--secondary)">{{
           changeTheme == "light" ? "mdi-lightbulb" : "mdi-lightbulb-outline"
         }}</v-icon>
@@ -30,7 +29,7 @@
 
     <button type="button" class="telegram-btn px-4 py-2" @click="telegramBot">
       open telegram bot
-      <v-icon color="var(--primary)">mdi-arrow-right-thin</v-icon>
+      <v-icon color="var(--on-tertiary)">mdi-arrow-right-thin</v-icon>
     </button>
   </nav>
 </template>
@@ -48,9 +47,9 @@ span {
 }
 .telegram-btn {
   font-family: "Tajawal", sans-serif !important;
-  background-color: var(--primary-container);
+  background-color: var(--tertiary);
   border-radius: 28px;
-  color: var(--primary) !important;
+  color: var(--on-tertiary) !important;
 }
 
 .change_color {
@@ -78,7 +77,7 @@ export default Vue.extend({
   },
 
   methods: {
-    changeTheme2() {
+    switchTheme() {
       this.$store.commit("switchTheme");
     },
     updateScroll() {
