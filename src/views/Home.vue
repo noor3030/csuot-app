@@ -86,7 +86,7 @@ export default Vue.extend({
   data() {
     return {
       stage: {} as types.Stage,
-      id: "",
+      stage_id: null as any,
       selectedCard: null,
       selectedDay: null,
       selectedPeriod: null,
@@ -96,11 +96,9 @@ export default Vue.extend({
   },
   created() {
     this.schedule = JSON.parse(localStorage.getItem("my last schedule")!);
-    this.id = this.$route.params.id;
-    this.getSchedule(this.id);
-    axios.get(`${BASE_URL}/schedule/all`).then((response) => {
-      this.schedules = response.data;
-    });
+    this.stage_id = this.$route.query.stage_id;
+    this.getSchedule(this.stage_id);
+    this.getAll();
   },
   methods: {
     getCard(period_id: string, day_id: string) {
@@ -108,14 +106,27 @@ export default Vue.extend({
         if (card.period_id === period_id && card.day_id === day_id) return card;
       }
     },
-    getSchedule(id: string) {
-      axios.get(`${BASE_URL}/schedule/?stage_id=${id}`).then((response) => {
-        this.schedule = response.data;
-        this.stage = this.schedule.stage;
-        localStorage.setItem("my last schedule", JSON.stringify(this.schedule));
+    getSchedule(stage_id: string) {
+      axios
+        .get(`${BASE_URL}/schedule`, {
+          params: { stage_id: stage_id, teacher_id: null },
+        })
+        .then((response) => {
+          this.schedule = response.data;
+          this.stage = this.schedule.stage;
+          this.selectedCard = null
+          localStorage.setItem(
+            "my last schedule",
+            JSON.stringify(this.schedule),
+            
+          );
+        });
+    },
+    getAll() {
+      axios.get(`${BASE_URL}/schedule/all`).then((response) => {
+        this.schedules = response.data;
       });
     },
-
     onCardClick(card: any, day: any, period: any) {
       this.selectedCard = card;
       this.selectedDay = day;

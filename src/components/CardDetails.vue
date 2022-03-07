@@ -6,6 +6,8 @@
     outlined
     style="border-color: var(--outline)"
     color="var(--surface-background)"
+    min-height="400"
+    
   >
     <h2 style="text-align: center; color: var(--on-surface-variant)">
       اضغط على الدرس لعرض التفاصيل
