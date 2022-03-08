@@ -81,6 +81,7 @@ import CardDetails from "@/components/CardDetails.vue";
 import CardScheduleDetails from "@/components/CardScheduleDetails.vue";
 import FabDownload from "@/components/FabDownload.vue";
 import { BASE_URL } from "@/utils/config";
+import { MY_SCHEDULE } from "@/utils/keys";
 
 export default Vue.extend({
   data() {
@@ -95,7 +96,7 @@ export default Vue.extend({
     };
   },
   created() {
-    this.schedule = JSON.parse(localStorage.getItem("my last schedule")!);
+    this.schedule = JSON.parse(localStorage.getItem(MY_SCHEDULE)!);
     this.stage_id = this.$route.query.stage_id;
     this.getSchedule(this.stage_id);
     this.getAll();
@@ -114,14 +115,11 @@ export default Vue.extend({
         .then((response) => {
           this.schedule = response.data;
           this.stage = this.schedule.stage;
-          this.selectedCard = null
-          localStorage.setItem(
-            "my last schedule",
-            JSON.stringify(this.schedule),
-            
-          );
+          this.selectedCard = null;
+          localStorage.setItem(MY_SCHEDULE, JSON.stringify(this.schedule));
         });
     },
+
     getAll() {
       axios.get(`${BASE_URL}/schedule/all`).then((response) => {
         this.schedules = response.data;
