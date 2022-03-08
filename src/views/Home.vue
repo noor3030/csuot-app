@@ -67,8 +67,9 @@
           </tbody>
         </table>
       </div>
-
+      <MySchedule />
       <FabDownload />
+
     </div>
   </div>
 </template>
@@ -83,7 +84,7 @@ import FabDownload from "@/components/FabDownload.vue";
 import { BASE_URL } from "@/utils/config";
 import { MY_SCHEDULE } from "@/utils/keys";
 import addHashToLocation from "@/utils/route";
-import removeNull from "@/utils/object";
+import MySchedule from "@/components/MySchedule.vue"
 
 export default Vue.extend({
   data() {
@@ -140,8 +141,9 @@ export default Vue.extend({
 
     formatPeriod,
     addHashToLocation,
+  
   },
-  components: { CardScheduleDetails, CardDetails, FabDownload },
+  components: { CardScheduleDetails, CardDetails, FabDownload ,MySchedule},
 });
 </script>
 <style lang="scss" scoped>

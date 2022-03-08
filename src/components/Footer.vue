@@ -6,7 +6,7 @@
           <img
             v-if="changeTheme == 'light'"
             src="../assets/light.png"
-            width="50"
+            width="30"
             class="mr-2"
           />
           <img v-else src="../assets/dark.png" alt="" width="30" class="mr-2" />
