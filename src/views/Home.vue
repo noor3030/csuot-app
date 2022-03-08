@@ -13,7 +13,7 @@
           :label="schedule.stage.name"
           item-text="name"
           item-value="id"
-          v-on:change="getSchedule"
+          v-on:change="onStageChange"
           filled
           color="var(--on-surface-variant)"
           background-color="var(--surface-background)"
@@ -82,6 +82,7 @@ import CardScheduleDetails from "@/components/CardScheduleDetails.vue";
 import FabDownload from "@/components/FabDownload.vue";
 import { BASE_URL } from "@/utils/config";
 import { MY_SCHEDULE } from "@/utils/keys";
+import addHashToLocation from "@/utils/route";
 
 export default Vue.extend({
   data() {
@@ -120,6 +121,11 @@ export default Vue.extend({
         });
     },
 
+    onStageChange(stage_id: string) {
+      this.getSchedule(stage_id);
+      this.addHashToLocation(`?stage_id=${stage_id}`);
+    },
+
     getAll() {
       axios.get(`${BASE_URL}/schedule/all`).then((response) => {
         this.schedules = response.data;
@@ -132,6 +138,7 @@ export default Vue.extend({
     },
 
     formatPeriod,
+    addHashToLocation,
   },
   components: { CardScheduleDetails, CardDetails, FabDownload },
 });
