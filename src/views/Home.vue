@@ -83,6 +83,7 @@ import FabDownload from "@/components/FabDownload.vue";
 import { BASE_URL } from "@/utils/config";
 import { MY_SCHEDULE } from "@/utils/keys";
 import addHashToLocation from "@/utils/route";
+import removeNull from "@/utils/object";
 
 export default Vue.extend({
   data() {
@@ -110,7 +111,7 @@ export default Vue.extend({
     },
     getSchedule(stage_id: string) {
       axios
-        .get(`${BASE_URL}/schedule`, {
+        .get(`${BASE_URL}/schedule/`, {
           params: { stage_id: stage_id, teacher_id: null },
         })
         .then((response) => {
