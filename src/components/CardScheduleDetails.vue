@@ -6,10 +6,15 @@
       align-items-center
       flex-column
       card-div
+      border 
+      border-1
       justify-content-between
     "
     v-if="card != null"
-    :style="{ 'background-color': card.lesson.teacher.color_light }"
+    :style="{
+      'background-color': card.lesson.teacher.color_light,
+      'border-color': 'red!important',
+    }"
   >
     <div class="pt-2">{{ card.lesson.subject.name }}</div>
     <div v-if="card.lesson.room_id != null">
