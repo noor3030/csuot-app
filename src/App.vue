@@ -23,11 +23,12 @@ import "./assets/css/main.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "@/components/Navbar.vue";
 import Footer from "@/components/Footer.vue";
+import { THEME } from "./utils/keys";
 
 export default Vue.extend({
   name: "App",
   data: () => ({
-    currentTheme: localStorage.getItem("theme-color") || "light",
+    currentTheme: localStorage.getItem(THEME) || "light",
   }),
   components: { Navbar, Footer },
 });

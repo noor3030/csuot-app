@@ -48,6 +48,7 @@ export default Vue.extend({
       this.$emit("clicked", this.card, this.day, this.period);
     },
   },
+  
 });
 </script>
 <style>
