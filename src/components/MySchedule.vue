@@ -1,6 +1,6 @@
 <template>
       <div>
-    <button class="my-schedule px-4 py-2 float-right" >
+    <button class="my-schedule px-4 py-2 float-right"  @click="clicked2">
       <v-icon class="pr-2" color="var(--on-tertiary)"
         >mdi-content-save</v-icon
       >
@@ -11,7 +11,11 @@
   <script lang="ts">
   import Vue from 'vue'
   export default Vue.extend({
-      
+      methods:{
+clicked2() {
+      this.$emit("clicked2");
+    },
+      }
   })
   </script>
 <style>

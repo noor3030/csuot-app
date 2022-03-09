@@ -46,7 +46,7 @@
           </thead>
           <tbody>
             <tr v-for="day in schedule.days" :key="day.id">
-              <td class="align-middle td-width" width="12.5%">
+              <td class="align-middle td-width" width="12.5%" >
                 <h2>{{ day.name }}</h2>
               </td>
               <td
@@ -67,9 +67,8 @@
           </tbody>
         </table>
       </div>
-      <MySchedule />
+      <MySchedule @clicked2="saveSchedule" />
       <FabDownload />
-
     </div>
   </div>
 </template>
@@ -84,7 +83,7 @@ import FabDownload from "@/components/FabDownload.vue";
 import { BASE_URL } from "@/utils/config";
 import { MY_SCHEDULE } from "@/utils/keys";
 import addHashToLocation from "@/utils/route";
-import MySchedule from "@/components/MySchedule.vue"
+import MySchedule from "@/components/MySchedule.vue";
 
 export default Vue.extend({
   data() {
@@ -99,16 +98,19 @@ export default Vue.extend({
     };
   },
   created() {
-    this.schedule = JSON.parse(localStorage.getItem(MY_SCHEDULE)!);
     this.stage_id = this.$route.query.stage_id;
-    this.getSchedule(this.stage_id);
     this.getAll();
+    this.getCurrentSchedule(this.stage_id);
   },
   methods: {
     getCard(period_id: string, day_id: string) {
       for (let card of this.schedule.cards) {
         if (card.period_id === period_id && card.day_id === day_id) return card;
       }
+    },
+    saveSchedule() {
+      localStorage.setItem(MY_SCHEDULE, JSON.stringify(this.schedule));
+      console.log("my");
     },
     getSchedule(stage_id: string) {
       axios
@@ -119,10 +121,17 @@ export default Vue.extend({
           this.schedule = response.data;
           this.stage = this.schedule.stage;
           this.selectedCard = null;
-          localStorage.setItem(MY_SCHEDULE, JSON.stringify(this.schedule));
         });
     },
-
+    getCurrentSchedule(id: string) {
+      if (id != null) {
+        this.getSchedule(id);
+      } else if (localStorage.getItem(MY_SCHEDULE) != null) {
+        this.schedule = JSON.parse(localStorage.getItem(MY_SCHEDULE)!);
+      } else {
+        this.getSchedule(id);
+      }
+    },
     onStageChange(stage_id: string) {
       this.getSchedule(stage_id);
       this.addHashToLocation(`?stage_id=${stage_id}`);
@@ -141,9 +150,8 @@ export default Vue.extend({
 
     formatPeriod,
     addHashToLocation,
-  
   },
-  components: { CardScheduleDetails, CardDetails, FabDownload ,MySchedule},
+  components: { CardScheduleDetails, CardDetails, FabDownload, MySchedule },
 });
 </script>
 <style lang="scss" scoped>
@@ -198,5 +206,8 @@ tbody {
 .test {
   margin-top: 75px;
   position: relative;
+}
+td:hover {
+  border-color: red;
 }
 </style>
