@@ -7,6 +7,25 @@
         :period="selectedPeriod"
         class="test"
       />
+
+      <p class="pt-5">نوع الجدول</p>
+      <v-chip-group
+        dir="rtl"
+        v-model="selection"
+        active-class="stertiary--text"
+        column
+        center-active
+        class="chips"
+      >
+        <v-chip
+          v-for="item in schedule_type"
+          :key="item"
+          color="var(--tertiary)"
+          ><span style="color: var(--on-tertiary) !important">{{
+            item
+          }}</span></v-chip
+        >
+      </v-chip-group>
       <div class="pt-5">
         <v-select
           :items="schedules.stages"
@@ -46,7 +65,7 @@
           </thead>
           <tbody>
             <tr v-for="day in schedule.days" :key="day.id">
-              <td class="align-middle td-width" width="12.5%" >
+              <td class="align-middle td-width" width="12.5%">
                 <h2>{{ day.name }}</h2>
               </td>
               <td
@@ -84,10 +103,11 @@ import { BASE_URL } from "@/utils/config";
 import { MY_SCHEDULE } from "@/utils/keys";
 import addHashToLocation from "@/utils/route";
 import MySchedule from "@/components/MySchedule.vue";
-
+import { ScheduleType } from "@/utils/Enum";
 export default Vue.extend({
   data() {
     return {
+      selection: ScheduleType.Stages,
       stage: {} as types.Stage,
       stage_id: null as any,
       selectedCard: null,
@@ -95,6 +115,7 @@ export default Vue.extend({
       selectedPeriod: null,
       schedule: {} as types.Schedule,
       schedules: {} as any,
+      schedule_type: ScheduleType,
     };
   },
   created() {
@@ -207,5 +228,8 @@ tbody {
   margin-top: 75px;
   position: relative;
 }
-
+.tertiary--text {
+    color: var(--on-tertiary) !important;
+    caret-color: var(--on-tertiary) !important;
+}
 </style>

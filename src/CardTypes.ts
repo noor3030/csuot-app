@@ -79,6 +79,5 @@ declare module types {
         stage : Stage
     }
 
-
 }
 export default types

@@ -6,7 +6,6 @@
       align-items-center
       flex-column
       card-div
-      
       justify-content-between
     "
     v-if="card != null"
@@ -32,7 +31,6 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
-//import { Fragment } from "vue-fragment";
 import increase_brightness from "@/utils/Colors";
 export default Vue.extend({
   props: {
@@ -59,7 +57,6 @@ export default Vue.extend({
 
 .card-div {
   height: 100%;
-  
 }
 .card-div:hover {
   height: 100%;
