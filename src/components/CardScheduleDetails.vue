@@ -6,14 +6,16 @@
       align-items-center
       flex-column
       card-div
-      border 
-      border-1
+      
       justify-content-between
     "
     v-if="card != null"
     :style="{
       'background-color': card.lesson.teacher.color_light,
-      'border-color': 'red!important',
+      'outline-color': `${increase_brightness(
+        card.lesson.teacher.color_light,
+        50
+      )} !important`,
     }"
   >
     <div class="pt-2">{{ card.lesson.subject.name }}</div>
@@ -31,6 +33,7 @@
 <script lang="ts">
 import Vue from "vue";
 //import { Fragment } from "vue-fragment";
+import increase_brightness from "@/utils/Colors";
 export default Vue.extend({
   props: {
     card: {
@@ -47,8 +50,8 @@ export default Vue.extend({
     clicked() {
       this.$emit("clicked", this.card, this.day, this.period);
     },
+    increase_brightness,
   },
-  
 });
 </script>
 <style>
@@ -56,6 +59,11 @@ export default Vue.extend({
 
 .card-div {
   height: 100%;
+  
+}
+.card-div:hover {
+  height: 100%;
+  outline: 5px solid !important;
 }
 
 p,

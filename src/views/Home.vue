@@ -207,7 +207,5 @@ tbody {
   margin-top: 75px;
   position: relative;
 }
-td:hover {
-  border-color: red;
-}
+
 </style>
