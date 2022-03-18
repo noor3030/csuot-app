@@ -40,6 +40,18 @@
           class="select-item-text"
         >
         </v-select>
+
+        <v-autocomplete
+          filled
+          :items="schedules.teachers"
+          label="جدول الاساتذة"
+          item-text="name"
+          item-value="id"
+          color="var(--on-surface-variant)"
+          background-color="var(--surface-background)"
+          item-color="var(--on-surface-variant)"
+          class="select-item-text"
+        ></v-autocomplete>
       </div>
     </div>
     <div class="col-lg-9 col-sm-12">
@@ -229,7 +241,8 @@ tbody {
   position: relative;
 }
 .tertiary--text {
-    color: var(--on-tertiary) !important;
-    caret-color: var(--on-tertiary) !important;
+  color: var(--on-tertiary) !important;
+  caret-color: var(--on-tertiary) !important;
 }
+
 </style>
