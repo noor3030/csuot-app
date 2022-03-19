@@ -8,40 +8,23 @@
         class="test"
       />
 
-      <p class="pt-5">نوع الجدول</p>
-      <v-chip-group
-        dir="rtl"
-        v-model="selection"
-        active-class="stertiary--text"
-        column
-        center-active
-        class="chips"
-      >
-        <v-chip
-          v-for="item in schedule_type"
-          :key="item"
-          color="var(--tertiary)"
-          ><span style="color: var(--on-tertiary) !important">{{
-            item
-          }}</span></v-chip
-        >
-      </v-chip-group>
       <div class="pt-5">
-        <v-select
+        <v-autocomplete
           :items="schedules.stages"
-          :label="schedule.stage.name"
+          label="جدول المراحل"
           item-text="name"
           item-value="id"
-          v-on:change="onStageChange"
+          @change="onStageChange"
+          v-model="stage_id"
           filled
           color="var(--on-surface-variant)"
           background-color="var(--surface-background)"
           item-color="var(--on-surface-variant)"
           class="select-item-text"
-        >
-        </v-select>
-
+        />
         <v-autocomplete
+          @change="onTeacherChange"
+          v-model="teacher_id"
           filled
           :items="schedules.teachers"
           label="جدول الاساتذة"
@@ -51,7 +34,31 @@
           background-color="var(--surface-background)"
           item-color="var(--on-surface-variant)"
           class="select-item-text"
-        ></v-autocomplete>
+        />
+        <v-autocomplete
+          filled
+          :items="schedules.subjects"
+          label="جدول المواد"
+          item-text="name"
+          item-value="id"
+          color="var(--on-surface-variant)"
+          background-color="var(--surface-background)"
+          item-color="var(--on-surface-variant)"
+          class="select-item-text"
+          @change="onSubjectChange"
+          v-model="subject_id"
+        />
+        <v-autocomplete
+          filled
+          :items="schedules.classrooms"
+          label="جدول الغرف"
+          item-text="name"
+          item-value="id"
+          color="var(--on-surface-variant)"
+          background-color="var(--surface-background)"
+          item-color="var(--on-surface-variant)"
+          class="select-item-text"
+        />
       </div>
     </div>
     <div class="col-lg-9 col-sm-12">
@@ -106,32 +113,35 @@
 <script lang="ts">
 import Vue from "vue";
 import axios from "axios";
-import types from "@/CardTypes";
-import formatPeriod from "@/utils/DateTimeUtils";
 import CardDetails from "@/components/CardDetails.vue";
 import CardScheduleDetails from "@/components/CardScheduleDetails.vue";
 import FabDownload from "@/components/FabDownload.vue";
+import MySchedule from "@/components/MySchedule.vue";
+import types from "@/CardTypes";
+import formatPeriod from "@/utils/DateTimeUtils";
 import { BASE_URL } from "@/utils/config";
 import { MY_SCHEDULE } from "@/utils/keys";
 import addHashToLocation from "@/utils/route";
-import MySchedule from "@/components/MySchedule.vue";
-import { ScheduleType } from "@/utils/Enum";
 export default Vue.extend({
   data() {
     return {
-      selection: ScheduleType.Stages,
-      stage: {} as types.Stage,
       stage_id: null as any,
+      teacher_id: null as any,
+      subject_id: null as any,
+
       selectedCard: null,
       selectedDay: null,
       selectedPeriod: null,
+
       schedule: {} as types.Schedule,
       schedules: {} as any,
-      schedule_type: ScheduleType,
     };
   },
   created() {
     this.stage_id = this.$route.query.stage_id;
+    this.teacher_id = this.$route.query.teacher_id;
+    this.subject_id = this.$route.query.subject_id;
+
     this.getAll();
     this.getCurrentSchedule(this.stage_id);
   },
@@ -145,14 +155,21 @@ export default Vue.extend({
       localStorage.setItem(MY_SCHEDULE, JSON.stringify(this.schedule));
       console.log("my");
     },
-    getSchedule(stage_id: string) {
+    getSchedule(
+      stage_id?: string | null,
+      teacher_id?: string | null,
+      subject_id?: string | null
+    ) {
       axios
         .get(`${BASE_URL}/schedule/`, {
-          params: { stage_id: stage_id, teacher_id: null },
+          params: {
+            stage_id: stage_id,
+            teacher_id: teacher_id,
+            subject_id: subject_id,
+          },
         })
         .then((response) => {
           this.schedule = response.data;
-          this.stage = this.schedule.stage;
           this.selectedCard = null;
         });
     },
@@ -165,11 +182,26 @@ export default Vue.extend({
         this.getSchedule(id);
       }
     },
+
     onStageChange(stage_id: string) {
       this.getSchedule(stage_id);
+      this.teacher_id = null;
+      this.subject_id = null;
       this.addHashToLocation(`?stage_id=${stage_id}`);
     },
 
+    onTeacherChange(teacher_id: string) {
+      this.getSchedule(null, teacher_id);
+      this.stage_id = null;
+      this.subject_id = null;
+      this.addHashToLocation(`?teacher_id=${teacher_id}`);
+    },
+    onSubjectChange(subject_id: string) {
+      this.getSchedule(null, null, subject_id);
+      this.stage_id = null;
+      this.teacher_id = null;
+      this.addHashToLocation(`?subject_id=${subject_id}`);
+    },
     getAll() {
       axios.get(`${BASE_URL}/schedule/all`).then((response) => {
         this.schedules = response.data;
@@ -244,5 +276,7 @@ tbody {
   color: var(--on-tertiary) !important;
   caret-color: var(--on-tertiary) !important;
 }
-
+.v-label .v-label--active {
+  color: red !important;
+}
 </style>
