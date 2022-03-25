@@ -63,7 +63,7 @@
     </div>
     <div class="col-lg-9 col-sm-12">
       <p style="color: var(--on-background); font-size: 40px">
-        {{ schedule.stage.name }}
+        {{ schedule.item.name }}
       </p>
 
       <div class="table-responsive">
@@ -117,7 +117,12 @@ import CardDetails from "@/components/CardDetails.vue";
 import CardScheduleDetails from "@/components/CardScheduleDetails.vue";
 import FabDownload from "@/components/FabDownload.vue";
 import MySchedule from "@/components/MySchedule.vue";
-import types from "@/CardTypes";
+import {
+  ScheduleDetails,
+  DaySchedule,
+  PeriodSchedule,
+  CardScheduleDetails as CardSchedule,
+} from "@/client";
 import formatPeriod from "@/utils/DateTimeUtils";
 import { BASE_URL } from "@/utils/config";
 import { MY_SCHEDULE } from "@/utils/keys";
@@ -129,11 +134,11 @@ export default Vue.extend({
       teacher_id: null as any,
       subject_id: null as any,
 
-      selectedCard: null,
-      selectedDay: null,
-      selectedPeriod: null,
+      selectedCard: null as null | CardSchedule,
+      selectedDay: null as null | DaySchedule,
+      selectedPeriod: null as null | PeriodSchedule,
 
-      schedule: {} as types.Schedule,
+      schedule: {} as ScheduleDetails,
       schedules: {} as any,
     };
   },
@@ -146,7 +151,7 @@ export default Vue.extend({
     this.getCurrentSchedule(this.stage_id);
   },
   methods: {
-    getCard(period_id: string, day_id: string) {
+    getCard(period_id: string, day_id: string): CardSchedule | undefined {
       for (let card of this.schedule.cards) {
         if (card.period_id === period_id && card.day_id === day_id) return card;
       }
@@ -207,7 +212,7 @@ export default Vue.extend({
         this.schedules = response.data;
       });
     },
-    onCardClick(card: any, day: any, period: any) {
+    onCardClick(card: CardSchedule, day: DaySchedule, period: PeriodSchedule) {
       this.selectedCard = card;
       this.selectedDay = day;
       this.selectedPeriod = period;

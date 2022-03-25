@@ -38,7 +38,7 @@ export default Vue.extend({
       type: Object,
     },
     period: {
-      type: Object,
+      type: Object ,
     },
     day: {
       type: Object,
