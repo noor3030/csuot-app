@@ -69,13 +69,18 @@
       <div class="table-responsive">
         <table class="table table-bordered align-middle">
           <thead>
-            <tr>
-              <th scope="col"></th>
+            <tr class="bottom-bordered">
+              <th
+                style="
+                  border-top: 0px solid #ddd !important;
+                  border-left: 0px solid #ddd !important;
+                "
+              ></th>
               <th
                 v-for="period in schedule.periods"
                 :key="period.id"
                 scope="col"
-                class="align-middle"
+                style="border-top: 0px solid #ddd !important"
               >
                 {{ formatPeriod(period.start_time) }} -
                 {{ formatPeriod(period.end_time) }}
@@ -84,7 +89,11 @@
           </thead>
           <tbody>
             <tr v-for="day in schedule.days" :key="day.id">
-              <td class="align-middle td-width" width="12.5%">
+              <td
+                class="align-middle td-width bordered"
+                width="12.5%"
+                style="border-left: 0px solid #ddd !important"
+              >
                 <h2>{{ day.name }}</h2>
               </td>
               <td
@@ -235,9 +244,8 @@ export default Vue.extend({
 .table {
   width: 100%;
   max-width: 100%;
-  border: 1px solid #ddd!important;
-  border: 1px solid #ddd!important;
-  border-radius: 15px!important;
+  border: 1px solid #ddd !important;
+  border-radius: 15px !important;
   background-color: transparent;
   border-collapse: collapse;
   border-spacing: 0;
@@ -248,11 +256,15 @@ export default Vue.extend({
   border-spacing: 0px;
 }
 
-.table > :not(caption) > * > * {
+.table > :not(caption):not(.bottom-bordered) > * > * {
   padding: 0.5rem 0.5rem;
-  border-right: 1px solid #ddd !important;
-  border-bottom: 1px solid #ddd !important;
+  border-top: 1px solid #ddd !important;
+  border-left: 1px solid #ddd !important;
 }
+.bottom-bordered {
+  border-top: 0px solid #ddd !important;
+}
+
 h2,
 th,
 p {
