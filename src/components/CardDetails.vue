@@ -2,22 +2,19 @@
   <v-card
     v-if="card == null"
     flat
-    class="px-5 "
+    class="px-5"
     outlined
     style="border-color: var(--outline)"
     color="var(--surface-background)"
     min-height="250"
-    
   >
-  
-  <div class="row align-items-center">
-    <div class="col">
-    <h2 style="text-align: center; color: var(--on-surface-variant)">
-      اضغط على الدرس لعرض التفاصيل
-    </h2>
+    <div class="row align-items-center">
+      <div class="col">
+        <h2 style="text-align: center; color: var(--on-surface-variant)">
+          اضغط على الدرس لعرض التفاصيل
+        </h2>
+      </div>
     </div>
-  </div>
-    
   </v-card>
   <v-card
     v-else
@@ -53,12 +50,15 @@ export default Vue.extend({
   props: {
     card: {
       type: Object,
+      required: true,
     },
     period: {
       type: Object,
+      required: true,
     },
     day: {
       type: Object,
+      required: true,
     },
   },
   methods: {

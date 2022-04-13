@@ -66,54 +66,7 @@
         {{ schedule.item.name }}
       </p>
 
-      <div class="table-responsive">
-        <table class="table table-bordered align-middle">
-          <thead>
-            <tr class="bottom-bordered">
-              <th
-                style="
-                  border-top: 0px solid #ddd !important;
-                  border-left: 0px solid #ddd !important;
-                "
-              ></th>
-              <th
-                v-for="period in schedule.periods"
-                :key="period.id"
-                scope="col"
-                style="border-top: 0px solid #ddd !important"
-              >
-                {{ formatPeriod(period.start_time) }} -
-                {{ formatPeriod(period.end_time) }}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="day in schedule.days" :key="day.id">
-              <td
-                class="align-middle td-width bordered"
-                width="12.5%"
-                style="border-left: 0px solid #ddd !important"
-              >
-                <h2>{{ day.name }}</h2>
-              </td>
-              <td
-                v-for="period in schedule.periods"
-                :key="period.id"
-                width="12.5%"
-                class="align-middle td-width"
-                style="vertical-align: middle"
-              >
-                <CardScheduleDetails
-                  :card="getCard(period.id, day.id)"
-                  :period="period"
-                  :day="day"
-                  @clicked="onCardClick"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <TimeTable :schedule="schedule" @onCardClick="onCardClick" />
       <MySchedule @clicked2="saveSchedule" />
       <FabDownload />
     </div>
@@ -123,7 +76,6 @@
 import Vue from "vue";
 import axios from "axios";
 import CardDetails from "@/components/CardDetails.vue";
-import CardScheduleDetails from "@/components/CardScheduleDetails.vue";
 import FabDownload from "@/components/FabDownload.vue";
 import MySchedule from "@/components/MySchedule.vue";
 import {
@@ -136,6 +88,7 @@ import formatPeriod from "@/utils/DateTimeUtils";
 import { BASE_URL } from "@/utils/config";
 import { MY_SCHEDULE } from "@/utils/keys";
 import addHashToLocation from "@/utils/route";
+import TimeTable from "@/components/TimeTable.vue";
 export default Vue.extend({
   data() {
     return {
@@ -160,11 +113,6 @@ export default Vue.extend({
     this.getCurrentSchedule(this.stage_id);
   },
   methods: {
-    getCard(period_id: string, day_id: string): CardSchedule | undefined {
-      for (let card of this.schedule.cards) {
-        if (card.period_id === period_id && card.day_id === day_id) return card;
-      }
-    },
     saveSchedule() {
       localStorage.setItem(MY_SCHEDULE, JSON.stringify(this.schedule));
       console.log("my");
@@ -230,40 +178,11 @@ export default Vue.extend({
     formatPeriod,
     addHashToLocation,
   },
-  components: { CardScheduleDetails, CardDetails, FabDownload, MySchedule },
+  components: { CardDetails, FabDownload, MySchedule, TimeTable },
 });
 </script>
-<style lang="scss" scoped>
+<style  scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans:wght@200&family=Outfit&family=Tajawal:wght@500&display=swap");
-
-.table-responsive {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.table {
-  width: 100%;
-  max-width: 100%;
-  border: 1px solid #ddd !important;
-  border-radius: 15px !important;
-  background-color: transparent;
-  border-collapse: collapse;
-  border-spacing: 0;
-  display: table;
-  border-collapse: separate;
-  box-sizing: border-box;
-  text-indent: initial;
-  border-spacing: 0px;
-}
-
-.table > :not(caption):not(.bottom-bordered) > * > * {
-  padding: 0.5rem 0.5rem;
-  border-top: 1px solid #ddd !important;
-  border-left: 1px solid #ddd !important;
-}
-.bottom-bordered {
-  border-top: 0px solid #ddd !important;
-}
 
 h2,
 th,
@@ -272,32 +191,7 @@ p {
   text-align: center;
   color: var(--on-background);
 }
-tr {
-  border-width: 0 1px;
-  border: 1px solid #ddd !important;
-  line-height: 20px;
-  min-height: 20px;
-  height: 20px;
-}
 
-tr td {
-  padding: 0 !important;
-  margin: 0 !important;
-  text-align: center;
-}
-td {
-  height: 110px;
-}
-
-.v-list {
-  background-color: var(--surface-background) !important;
-}
-
-@media (max-width: 800px) {
-  .td-width {
-    min-width: 150px !important;
-  }
-}
 .test {
   margin-top: 75px;
   position: relative;
