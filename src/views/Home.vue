@@ -227,6 +227,32 @@ export default Vue.extend({
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans:wght@200&family=Outfit&family=Tajawal:wght@500&display=swap");
 
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid #ddd!important;
+  border: 1px solid #ddd!important;
+  border-radius: 15px!important;
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+  display: table;
+  border-collapse: separate;
+  box-sizing: border-box;
+  text-indent: initial;
+  border-spacing: 0px;
+}
+
+.table > :not(caption) > * > * {
+  padding: 0.5rem 0.5rem;
+  border-right: 1px solid #ddd !important;
+  border-bottom: 1px solid #ddd !important;
+}
 h2,
 th,
 p {
@@ -235,6 +261,8 @@ p {
   color: var(--on-background);
 }
 tr {
+  border-width: 0 1px;
+  border: 1px solid #ddd !important;
   line-height: 20px;
   min-height: 20px;
   height: 20px;
@@ -248,22 +276,7 @@ tr td {
 td {
   height: 110px;
 }
-table {
-  background-color: var(--surface-background);
-}
-table.table-bordered {
-  border-color: var(--outline);
-}
-table.table-bordered > thead > tr > th {
-  border-color: var(--outline);
-}
 
-table.table-bordered > tbody > tr > td {
-  border-color: var(--outline);
-}
-tbody {
-  border-top: 1px !important;
-}
 .v-list {
   background-color: var(--surface-background) !important;
 }

@@ -34,7 +34,7 @@
     </p>
     <v-container
       class="container"
-      :style="{ 'background-color': card.lesson.teacher.color_light }"
+      :style="{ 'background-color': card.lesson.teacher.color }"
     >
       <h2 style="text-align: center; color: #000000">
         {{ card.lesson.subject.name }}

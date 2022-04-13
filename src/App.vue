@@ -20,7 +20,6 @@
 <script lang="ts">
 import Vue from "vue";
 import "./assets/css/main.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "@/components/Navbar.vue";
 import Footer from "@/components/Footer.vue";
 import { THEME } from "./utils/keys";

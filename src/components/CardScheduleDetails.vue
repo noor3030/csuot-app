@@ -3,16 +3,15 @@
     @click="clicked"
     class="
       d-flex
-      align-items-center
       flex-column
       card-div
       justify-content-between
     "
     v-if="card != null"
     :style="{
-      'background-color': card.lesson.teacher.color_light,
+      'background-color': card.lesson.teacher.color,
       'outline-color': `${increase_brightness(
-        card.lesson.teacher.color_light,
+        card.lesson.teacher.color,
         50
       )} !important`,
     }"
@@ -61,6 +60,10 @@ export default Vue.extend({
 .card-div:hover {
   height: 100%;
   outline: 5px solid !important;
+}
+
+.justify-content-between {
+    justify-content: space-between!important;
 }
 
 p,
