@@ -84,7 +84,7 @@ import {
   PeriodSchedule,
   CardScheduleDetails as CardSchedule,
 } from "@/client";
-import formatPeriod from "@/utils/DateTimeUtils";
+import { formatPeriod } from "@/utils/DateTimeUtils";
 import { BASE_URL } from "@/utils/config";
 import { MY_SCHEDULE } from "@/utils/keys";
 import addHashToLocation from "@/utils/route";

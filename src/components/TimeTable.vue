@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import formatPeriod from "@/utils/DateTimeUtils";
+import { formatPeriod } from "@/utils/DateTimeUtils";
 
 import {
   DaySchedule,

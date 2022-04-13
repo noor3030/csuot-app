@@ -44,7 +44,7 @@
 <script lang="ts">
 import Vue from "vue";
 
-import formatPeriod from "@/utils/DateTimeUtils";
+import { formatPeriod } from "@/utils/DateTimeUtils";
 
 export default Vue.extend({
   props: {
