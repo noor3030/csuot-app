@@ -17,9 +17,6 @@
           @change="onStageChange"
           v-model="stage_id"
           filled
-          color="var(--on-surface-variant)"
-          background-color="var(--surface-background)"
-          item-color="var(--on-surface-variant)"
           class="select-item-text"
         />
         <v-autocomplete
@@ -30,9 +27,6 @@
           label="جدول الاساتذة"
           item-text="name"
           item-value="id"
-          color="var(--on-surface-variant)"
-          background-color="var(--surface-background)"
-          item-color="var(--on-surface-variant)"
           class="select-item-text"
         />
         <v-autocomplete
@@ -41,9 +35,6 @@
           label="جدول المواد"
           item-text="name"
           item-value="id"
-          color="var(--on-surface-variant)"
-          background-color="var(--surface-background)"
-          item-color="var(--on-surface-variant)"
           class="select-item-text"
           @change="onSubjectChange"
           v-model="subject_id"
@@ -54,15 +45,12 @@
           label="جدول الغرف"
           item-text="name"
           item-value="id"
-          color="var(--on-surface-variant)"
-          background-color="var(--surface-background)"
-          item-color="var(--on-surface-variant)"
           class="select-item-text"
         />
       </div>
     </div>
     <div class="col-lg-9 col-sm-12">
-      <p style="color: var(--on-background); font-size: 40px">
+      <p style="font-size: 40px">
         {{ schedule.item.name }}
       </p>
 
@@ -182,25 +170,14 @@ export default Vue.extend({
 });
 </script>
 <style  scoped>
-@import url("https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans:wght@200&family=Outfit&family=Tajawal:wght@500&display=swap");
-
 h2,
 th,
 p {
-  font-family: "Tajawal", sans-serif !important;
   text-align: center;
-  color: var(--on-background);
 }
 
 .test {
   margin-top: 75px;
   position: relative;
-}
-.tertiary--text {
-  color: var(--on-tertiary) !important;
-  caret-color: var(--on-tertiary) !important;
-}
-.v-label .v-label--active {
-  color: red !important;
 }
 </style>

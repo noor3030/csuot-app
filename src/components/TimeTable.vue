@@ -144,9 +144,7 @@ td {
   height: 110px;
 }
 
-.v-list {
-  background-color: var(--surface-background) !important;
-}
+
 
 @media (max-width: 800px) {
   .td-width {
