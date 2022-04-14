@@ -1,6 +1,6 @@
 <template>
   <v-app-bar absolute scroll-target="#scrolling" elevate-on-scroll>
-    <AppLogo />
+    <AppLogo size="30" />
     <v-toolbar-title>Computer science</v-toolbar-title>
 
     <v-spacer></v-spacer>
@@ -9,7 +9,7 @@
         $vuetify.theme.dark ? "mdi-lightbulb-outline" : "mdi-lightbulb"
       }}</v-icon>
     </v-btn>
-    <v-btn rounded medium color="secondary">
+    <v-btn rounded medium class="secondary" @click="openTelegramBot">
       Open telegram
       <v-icon right dark> mdi-arrow-right </v-icon>
     </v-btn>
@@ -24,7 +24,6 @@ export default Vue.extend({
   components: { AppLogo },
   data() {
     return {
-      collapseOnScroll: true,
       stage: JSON.parse(localStorage.getItem("stage")!),
     };
   },
@@ -39,7 +38,7 @@ export default Vue.extend({
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     },
 
-    telegramBot() {
+    openTelegramBot() {
       location.href = "https://t.me/CsUotBot";
     },
   },
