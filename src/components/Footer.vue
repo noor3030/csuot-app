@@ -1,47 +1,29 @@
 <template>
-  <footer class="text-center ma-16">
-    <div class="container p-4">
-      <div class="row">
-        <div class="maintxt">
-          <img
-            v-if="changeTheme == 'light'"
-            src="../assets/light.png"
-            width="30"
-            class="mr-2"
-          />
-          <img v-else src="../assets/dark.png" alt="" width="30" class="mr-2" />
-        </div>
-      </div>
-      <div class="row">
-        <p style="color: var(--on-secondary-container)">
-          قراءة الجدول بابسط طريقة ممكنة وبوت تليكرام لتحسين تطبيق القسم<br />
-          التطبيق مفتوح المصدر افتح رابط التليكرام لطريقة الاستخدام
-        </p>
-      </div>
+  <v-footer class="text-center ma-16 rounded-xl" color="accent">
+    <v-container class="pa-4">
+      <AppLogo :size="30" />
+      <p>
+        قراءة الجدول بابسط طريقة ممكنة وبوت تليكرام لتحسين تطبيق القسم<br />
+        التطبيق مفتوح المصدر افتح رابط التليكرام لطريقة الاستخدام
+      </p>
       <section>
-        <a href="" class="link">GitHup</a>
+        <a href="" class="link">GitHub</a>
         <a href="https://t.me/CsUotBot" class="link">Telegram bot</a>
         <a href="" class="link">Main website</a>
         <a href="https://www.uotechnology.edu.iq/" class="link">UOT website</a>
       </section>
-      <v-divider style="color: var(--outline)"></v-divider>
-      <v-row>
-        <p style="color: var(--on-secondary-container)">
-          <b>By: @Constroctor Team</b
-          ><a
-            href="https://t.me/CsUotBot"
-            class="pl-3"
-            style="color: var(--on-secondary-container)"
-            ><b>Telegram</b></a
-          >
-        </p>
-      </v-row>
-    </div>
-  </footer>
+      <v-divider class="my-2"></v-divider>
+      <section>
+        <a href="https://t.me/CsUotBot"><b>By: @ConstructorTeam</b></a>
+      </section>
+    </v-container>
+  </v-footer>
 </template>
 <script lang="ts">
 import Vue from "vue";
+import AppLogo from "@/components/AppLogo.vue";
 export default Vue.extend({
+  components: { AppLogo },
   computed: {
     changeTheme() {
       return this.$store.state.currentTheme;
