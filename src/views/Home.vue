@@ -1,6 +1,9 @@
 <template>
   <v-row class="ma-4">
-    <v-col lg="3" sm="12" :class="{ 'skip-title': $vuetify.breakpoint.lg }" >
+      <v-snackbar v-model="saveSnackbar" >
+      تم حفظ ( {{ schedule.item.name }} ) كجدولك
+    </v-snackbar>
+    <v-col lg="3" sm="12" :class="{ 'skip-title': $vuetify.breakpoint.lg }">
       <v-bottom-sheet
         v-if="$vuetify.breakpoint.smAndDown"
         hide-overlay
@@ -120,6 +123,7 @@ export default Vue.extend({
       subjectId: null as any,
       classroomId: null as any,
 
+      saveSnackbar: false,
       showCardDetails: false,
       downloadLoading: false,
 
@@ -142,6 +146,7 @@ export default Vue.extend({
   },
   methods: {
     saveSchedule() {
+      this.saveSnackbar = true;
       localStorage.setItem(MY_SCHEDULE, JSON.stringify(this.schedule));
     },
     getSchedule(
@@ -230,6 +235,6 @@ export default Vue.extend({
 </script>
 <style  scoped>
 .skip-title {
-  margin-top: 75px; 
+  margin-top: 75px;
 }
 </style>
