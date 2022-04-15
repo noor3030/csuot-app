@@ -1,30 +1,34 @@
 <template>
-  <v-row>
-    <v-bottom-sheet hide-overlay persistent v-model="showCardDetails">
-      <v-card>
-        <v-spacer></v-spacer>
-        <v-card-actions>
-          <v-btn
-            align="end"
-            outlined
-            large
-            fab
-            @click="showCardDetails = false"
-          >
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-card-actions>
+  <v-row class="ma-4">
+    <v-col lg="3" sm="12" :class="{ 'skip-title': $vuetify.breakpoint.lg }" >
+      <v-bottom-sheet
+        v-if="$vuetify.breakpoint.smAndDown"
+        hide-overlay
+        persistent
+        v-model="showCardDetails"
+      >
+        <v-card>
+          <v-card-actions>
+            <v-btn
+              align="end"
+              outlined
+              large
+              fab
+              @click="showCardDetails = false"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-card-actions>
 
-        <CardDetails
-          :card="selectedCard"
-          :day="selectedDay"
-          :period="selectedPeriod"
-        />
-      </v-card>
-    </v-bottom-sheet>
-    <v-col lg="3" sm="12" :class="{ 'skip-title': $vuetify.breakpoint.lg }">
+          <CardDetails
+            :card="selectedCard"
+            :day="selectedDay"
+            :period="selectedPeriod"
+          />
+        </v-card>
+      </v-bottom-sheet>
       <CardDetails
-        v-if="$vuetify.breakpoint.smAndUp"
+        v-else
         :card="selectedCard"
         :day="selectedDay"
         :period="selectedPeriod"
@@ -74,7 +78,7 @@
       </p>
 
       <TimeTable :schedule="schedule" @onCardClick="onCardClick" />
-      <v-row class="mt-1">
+      <v-row class="mt-2 px-3">
         <v-btn
           rounded
           class="secondary"
@@ -226,7 +230,6 @@ export default Vue.extend({
 </script>
 <style  scoped>
 .skip-title {
-  margin-top: 75px;
-  position: relative;
+  margin-top: 75px; 
 }
 </style>
