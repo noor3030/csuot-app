@@ -12,8 +12,8 @@
       }}</v-icon>
     </v-btn>
 
-    <v-btn v-if="mobile" icon @click="openTelegramBot">
-      <v-icon medium>fa-brands fa-telegram</v-icon>
+    <v-btn v-if="$vuetify.breakpoint.xsOnly" icon @click="openTelegramBot">
+      <v-icon medium color="secondary">fa-brands fa-telegram</v-icon>
     </v-btn>
     <v-btn v-else rounded class="secondary" @click="openTelegramBot">
       Open telegram
@@ -36,9 +36,6 @@ export default Vue.extend({
   computed: {
     changeTheme() {
       return this.$store.state.currentTheme;
-    },
-    mobile() {
-      return this.$vuetify.breakpoint.xs;
     },
   },
 

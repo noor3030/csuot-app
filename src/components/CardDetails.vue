@@ -1,38 +1,14 @@
 <template>
-  <v-card
-    v-if="card == null"
-    flat
-    class="px-5"
-    outlined
-    style="border-color: var(--outline)"
-    color="var(--surface-background)"
-    min-height="250"
-  >
-    <div class="row align-items-center">
-      <div class="col">
-        <h2 style="text-align: center; color: var(--on-surface-variant)">
-          اضغط على الدرس لعرض التفاصيل
-        </h2>
-      </div>
-    </div>
+  <v-card v-if="card == null" outlined min-height="250" class="pa-5">
+    <h2>اضغط على الدرس لعرض التفاصيل</h2>
   </v-card>
-  <v-card
-    v-else
-    flat
-    class="px-5"
-    outlined
-    style="border-color: var(--outline)"
-    color="var(--surface-background)"
-  >
+  <v-card v-else min-height="250" class="pa-5" outlined>
     <h1 style="text-align: end">{{ day.name }}</h1>
     <p style="text-align: end">
       {{ formatPeriod(period.start_time) }} -
       {{ formatPeriod(period.end_time) }}
     </p>
-    <v-container
-      class="container"
-      :style="{ 'background-color': card.lesson.teacher.color }"
-    >
+    <v-container :style="{ 'background-color': card.lesson.teacher.color }">
       <h2 style="text-align: center; color: #000000">
         {{ card.lesson.subject.name }}
       </h2>
@@ -50,15 +26,12 @@ export default Vue.extend({
   props: {
     card: {
       type: Object,
-      required: true,
     },
     period: {
       type: Object,
-      required: true,
     },
     day: {
       type: Object,
-      required: true,
     },
   },
   methods: {
@@ -67,12 +40,6 @@ export default Vue.extend({
 });
 </script>
 <style scoped>
-h1,
-h2,
-p {
-  font-family: "Tajawal", sans-serif !important;
-  color: var(--on-surface);
-}
 .container {
   border-radius: 28px;
 }

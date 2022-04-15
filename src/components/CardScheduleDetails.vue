@@ -1,12 +1,7 @@
 <template>
   <div
     @click="clicked"
-    class="
-      d-flex
-      flex-column
-      card-div
-      justify-content-between
-    "
+    class="d-flex flex-column card-div justify-content-between"
     v-if="card != null"
     :style="{
       'background-color': card.lesson.teacher.color,
@@ -37,7 +32,7 @@ export default Vue.extend({
       type: Object,
     },
     period: {
-      type: Object ,
+      type: Object,
     },
     day: {
       type: Object,
@@ -52,22 +47,17 @@ export default Vue.extend({
 });
 </script>
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans:wght@200&family=Outfit&family=Tajawal:wght@500&display=swap");
-
 .card-div {
   height: 100%;
+  cursor: pointer;
 }
 .card-div:hover {
   height: 100%;
-  outline: 5px solid !important;
+  outline: 10px solid !important;
+  border-radius: 4px;
 }
 
 .justify-content-between {
-    justify-content: space-between!important;
-}
-
-p,
-div {
-  font-family: "Tajawal", sans-serif !important;
+  justify-content: space-between !important;
 }
 </style>

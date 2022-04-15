@@ -1,19 +1,16 @@
 <template>
   <div class="table-responsive">
-    <table class="table-bordered align-middle">
+    <table class="table-bordered rounded">
       <thead>
         <tr class="bottom-bordered">
           <th
-            style="
-              border-top: 0px solid #ddd !important;
-              border-left: 0px solid #ddd !important;
-            "
+            style="border-top: 0px !important; border-left: 0px !important"
           ></th>
           <th
             v-for="period in _schedule.periods"
             :key="period.id"
             scope="col"
-            style="border-top: 0px solid #ddd !important"
+            style="border-top: 0px !important"
           >
             {{ formatPeriod(period.start_time) }} -
             {{ formatPeriod(period.end_time) }}
@@ -23,9 +20,9 @@
       <tbody>
         <tr v-for="day in _schedule.days" :key="day.id">
           <td
-            class="align-middle td-width bordered"
+            class="td-width bordered"
             width="12.5%"
-            style="border-left: 0px solid #ddd !important"
+            style="border-left: 0px !important"
           >
             <h2>{{ day.name }}</h2>
           </td>
@@ -33,8 +30,7 @@
             v-for="period in _schedule.periods"
             :key="period.id"
             width="12.5%"
-            class="align-middle td-width"
-            style="vertical-align: middle"
+            class="td-width"
           >
             <CardScheduleDetails
               :card="getCard(period.id, day.id)"
@@ -107,7 +103,6 @@ export default Vue.extend({
   width: 100%;
   max-width: 100%;
   border: 1px solid #ddd !important;
-  border-radius: 15px !important;
   background-color: transparent;
   border-collapse: collapse;
   border-spacing: 0;
@@ -124,7 +119,7 @@ export default Vue.extend({
   border-left: 1px solid #ddd !important;
 }
 .bottom-bordered {
-  border-top: 0px solid #ddd !important;
+  border-top: 0px !important;
 }
 
 tr {
@@ -144,9 +139,7 @@ td {
   height: 110px;
 }
 
-
-
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   .td-width {
     min-width: 150px !important;
   }
