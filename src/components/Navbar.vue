@@ -1,17 +1,23 @@
 <template>
   <v-app-bar absolute scroll-target="#scrolling" elevate-on-scroll>
-    <AppLogo size="30" />
+    <AppLogo :size="30" />
+
     <v-toolbar-title>Computer science</v-toolbar-title>
 
     <v-spacer></v-spacer>
+
     <v-btn icon @click="switchTheme">
       <v-icon>{{
         $vuetify.theme.dark ? "mdi-lightbulb-outline" : "mdi-lightbulb"
       }}</v-icon>
     </v-btn>
-    <v-btn rounded medium class="secondary" @click="openTelegramBot">
+
+    <v-btn v-if="mobile" icon @click="openTelegramBot">
+      <v-icon medium>fa-brands fa-telegram</v-icon>
+    </v-btn>
+    <v-btn v-else rounded class="secondary" @click="openTelegramBot">
       Open telegram
-      <v-icon right dark> mdi-arrow-right </v-icon>
+      <v-icon medium>fa-brands fa-telegram</v-icon>
     </v-btn>
   </v-app-bar>
 </template>
@@ -30,6 +36,9 @@ export default Vue.extend({
   computed: {
     changeTheme() {
       return this.$store.state.currentTheme;
+    },
+    mobile() {
+      return this.$vuetify.breakpoint.xs;
     },
   },
 
