@@ -1,11 +1,34 @@
 <template>
   <v-row>
-    <v-col lg="3" sm="12">
+    <v-bottom-sheet hide-overlay persistent v-model="showCardDetails">
+      <v-card>
+        <v-spacer></v-spacer>
+        <v-card-actions>
+          <v-btn
+            align="end"
+            outlined
+            large
+            fab
+            @click="showCardDetails = false"
+          >
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-actions>
+
+        <CardDetails
+          :card="selectedCard"
+          :day="selectedDay"
+          :period="selectedPeriod"
+        />
+      </v-card>
+    </v-bottom-sheet>
+    <v-col lg="3" sm="12" :class="{ 'skip-title': $vuetify.breakpoint.lg }">
       <CardDetails
+        v-if="$vuetify.breakpoint.smAndUp"
         :card="selectedCard"
         :day="selectedDay"
         :period="selectedPeriod"
-        class="test"
+        class="mb-4"
       />
 
       <v-autocomplete
@@ -14,19 +37,17 @@
         item-text="name"
         item-value="id"
         @change="onStageChange"
-        v-model="stage_id"
+        v-model="stageId"
         filled
-        class="select-item-text"
       />
       <v-autocomplete
         @change="onTeacherChange"
-        v-model="teacher_id"
+        v-model="teacherId"
         filled
         :items="schedules.teachers"
         label="جدول الاساتذة"
         item-text="name"
         item-value="id"
-        class="select-item-text"
       />
       <v-autocomplete
         filled
@@ -34,9 +55,8 @@
         label="جدول المواد"
         item-text="name"
         item-value="id"
-        class="select-item-text"
         @change="onSubjectChange"
-        v-model="subject_id"
+        v-model="subjectId"
       />
       <v-autocomplete
         filled
@@ -44,9 +64,8 @@
         label="جدول الغرف"
         item-text="name"
         item-value="id"
-        class="select-item-text"
         @change="onRoomChange"
-        v-model="room_id"
+        v-model="classroomId"
       />
     </v-col>
     <v-col lg="9" sm="12">
@@ -84,7 +103,6 @@ import {
   PeriodSchedule,
   CardScheduleDetails as CardSchedule,
 } from "@/client";
-import { formatPeriod } from "@/utils/DateTimeUtils";
 import { BASE_URL } from "@/utils/config";
 import { MY_SCHEDULE } from "@/utils/keys";
 import { downloadImage } from "@/utils/download";
@@ -93,11 +111,12 @@ import TimeTable from "@/components/TimeTable.vue";
 export default Vue.extend({
   data() {
     return {
-      stage_id: null as any,
-      teacher_id: null as any,
-      subject_id: null as any,
-      room_id: null as any,
+      stageId: null as any,
+      teacherId: null as any,
+      subjectId: null as any,
+      classroomId: null as any,
 
+      showCardDetails: false,
       downloadLoading: false,
 
       selectedCard: null as any,
@@ -109,17 +128,17 @@ export default Vue.extend({
     };
   },
   created() {
-    this.stage_id = this.$route.query.stage_id;
-    this.teacher_id = this.$route.query.teacher_id;
-    this.subject_id = this.$route.query.subject_id;
+    this.stageId = this.$route.query.stage_id;
+    this.teacherId = this.$route.query.teacher_id;
+    this.subjectId = this.$route.query.subject_id;
+    this.classroomId = this.$route.query.classroomId;
 
     this.getAll();
-    this.getCurrentSchedule(this.stage_id);
+    this.getCurrentSchedule(this.stageId);
   },
   methods: {
     saveSchedule() {
       localStorage.setItem(MY_SCHEDULE, JSON.stringify(this.schedule));
-      console.log("my");
     },
     getSchedule(
       stage_id?: string | null,
@@ -127,6 +146,10 @@ export default Vue.extend({
       subject_id?: string | null,
       room_id?: string | null
     ) {
+      this.stageId = stage_id;
+      this.teacherId = teacher_id;
+      this.subjectId = subject_id;
+      this.classroomId = room_id;
       axios
         .get(`${BASE_URL}/schedule/`, {
           params: {
@@ -176,6 +199,7 @@ export default Vue.extend({
       this.selectedCard = card;
       this.selectedDay = day;
       this.selectedPeriod = period;
+      this.showCardDetails = true;
     },
     async download() {
       this.downloadLoading = true;
@@ -183,10 +207,10 @@ export default Vue.extend({
       await axios
         .get(`${BASE_URL}/schedule/image`, {
           params: {
-            stage_id: this.stage_id,
-            teacher_id: this.teacher_id,
-            subject_id: this.subject_id,
-            classroom_id: this.room_id,
+            stage_id: this.stageId,
+            teacher_id: this.teacherId,
+            subject_id: this.subjectId,
+            classroom_id: this.classroomId,
           },
         })
         .then(async (response) => {
@@ -195,14 +219,13 @@ export default Vue.extend({
       this.downloadLoading = false;
     },
 
-    formatPeriod,
     addHashToLocation,
   },
   components: { CardDetails, TimeTable },
 });
 </script>
 <style  scoped>
-.test {
+.skip-title {
   margin-top: 75px;
   position: relative;
 }

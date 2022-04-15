@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar absolute scroll-target="#scrolling" elevate-on-scroll>
+  <v-app-bar  flat >
     <AppLogo :size="30" />
 
     <v-toolbar-title>Computer science</v-toolbar-title>
@@ -15,7 +15,7 @@
     <v-btn v-if="$vuetify.breakpoint.xsOnly" icon @click="openTelegramBot">
       <v-icon medium color="secondary">fa-brands fa-telegram</v-icon>
     </v-btn>
-    <v-btn v-else rounded class="secondary" @click="openTelegramBot">
+    <v-btn v-else rounded elevation="0"  class="secondary" @click="openTelegramBot">
       Open telegram
       <v-icon medium>fa-brands fa-telegram</v-icon>
     </v-btn>

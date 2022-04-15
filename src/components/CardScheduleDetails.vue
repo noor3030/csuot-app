@@ -4,7 +4,7 @@
     class="d-flex flex-column card-div justify-content-between"
     v-if="card != null"
     :style="{
-      'background-color': card.lesson.teacher.color,
+      'background-color': card.lesson.teacher.color || '#ffffff',
       'outline-color': `${increase_brightness(
         card.lesson.teacher.color,
         50

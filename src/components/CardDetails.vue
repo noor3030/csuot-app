@@ -1,14 +1,17 @@
 <template>
-  <v-card v-if="card == null" outlined min-height="250" class="pa-5">
+  <v-card v-if="card == null" outlined min-height="250" class="pa-5 rounded">
     <h2>اضغط على الدرس لعرض التفاصيل</h2>
   </v-card>
-  <v-card v-else min-height="250" class="pa-5" outlined>
+  <v-card v-else min-height="250" class="px-5 py-2" outlined>
     <h1 style="text-align: end">{{ day.name }}</h1>
     <p style="text-align: end">
       {{ formatPeriod(period.start_time) }} -
       {{ formatPeriod(period.end_time) }}
     </p>
-    <v-container :style="{ 'background-color': card.lesson.teacher.color }">
+    <v-container
+      rounded-pill
+      :style="{ 'background-color': card.lesson.teacher.color }"
+    >
       <h2 style="text-align: center; color: #000000">
         {{ card.lesson.subject.name }}
       </h2>
@@ -37,12 +40,14 @@ export default Vue.extend({
   methods: {
     formatPeriod,
   },
+  computed: {
+    sheet() {
+      return this.$vuetify.breakpoint.lg;
+    },
+  },
 });
 </script>
 <style scoped>
-.container {
-  border-radius: 28px;
-}
 p {
   font-size: 20px;
 }

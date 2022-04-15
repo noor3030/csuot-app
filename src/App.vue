@@ -3,13 +3,15 @@
     id="app"
     :style="{ background: $vuetify.theme.themes[theme].background }"
   >
-    <Navbar />
+    <v-card class="overflow-hidden">
+      <Navbar />
 
-    <v-main>
-      <router-view />
-    </v-main>
+      <v-main>
+        <router-view />
+      </v-main>
 
-    <Footer />
+      <Footer />
+    </v-card>
   </v-app>
 </template>
 
@@ -22,9 +24,23 @@ import { THEME } from "./utils/keys";
 
 export default Vue.extend({
   name: "App",
+  created() {
+    window.addEventListener("keydown", this.escapeListener);
+  },
+  // make sure you remove the listener when the component is no longer visible
+  destroyed() {
+    window.removeEventListener("keydown", this.escapeListener);
+  },
   data: () => ({
     currentTheme: localStorage.getItem(THEME) || "light",
   }),
+  methods: {
+    escapeListener(e: KeyboardEvent) {
+      if (e.ctrlKey && e.key === "b") {
+        this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+      }
+    },
+  },
   computed: {
     theme() {
       return this.$vuetify.theme.dark ? "dark" : "light";
@@ -33,6 +49,7 @@ export default Vue.extend({
   components: { Navbar, Footer },
 });
 </script>
+
 <style >
 @import url("https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans:wght@200&family=Outfit&family=Tajawal:wght@500&display=swap");
 #app {
