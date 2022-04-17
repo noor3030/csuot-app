@@ -1,13 +1,19 @@
 import "@fortawesome/fontawesome-free/css/all.css"; // Ensure you are using css-loader
-import "@fortawesome/fontawesome-free/css/all.css"; // Ensure you are using css-loader
 import Vue from "vue";
 import Vuetify from "vuetify/lib/framework";
+import ar from "@/i18n/vuetify/ar";
+import en from "@/i18n/vuetify/en";
 
 Vue.use(Vuetify);
 
 export default new Vuetify({
+  lang: {
+    locales: { ar, en },
+    current: "ar",
+  },
+  rtl: true,
   icons: {
-    iconfont: "mdi" , 
+    iconfont: "mdi",
   },
   theme: {
     dark: true,
