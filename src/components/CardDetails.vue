@@ -3,8 +3,8 @@
     <h2>{{ $vuetify.lang.t("$vuetify.clickToShowDetails") }}</h2>
   </v-card>
   <v-card v-else min-height="250" class="px-5 py-2" outlined>
-    <h1 style="text-align: end">{{ day.name }}</h1>
-    <p style="text-align: end">
+    <h1 style="text-align: right">{{ day.name }}</h1>
+    <p style="text-align: right">
       {{ formatPeriod(period.start_time) }} -
       {{ formatPeriod(period.end_time) }}
     </p>
@@ -16,8 +16,8 @@
         {{ card.lesson.subject.name }}
       </h2>
     </v-container>
-    <p style="text-align: end">{{ card.lesson.teacher.name }}</p>
-    <p style="text-align: end">{{ card.lesson.room.name }}</p>
+    <p style="text-align: right">{{ card.lesson.teacher.name }}</p>
+    <p style="text-align: right">{{ card.lesson.room.name }}</p>
   </v-card>
 </template>
 <script lang="ts">

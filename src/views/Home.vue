@@ -5,6 +5,29 @@
         $vuetify.lang.t("$vuetify.saveAsYourSchedule", schedule.item.name || "")
       }}
     </v-snackbar>
+    <v-col lg="9" sm="12">
+      <p style="font-size: 35px">
+        {{ schedule.item.name }}
+      </p>
+
+      <TimeTable :schedule="schedule" @onCardClick="onCardClick" />
+      <v-row class="mt-2 px-3">
+        <v-btn
+          rounded
+          class="secondary"
+          :loading="downloadLoading"
+          @click="download"
+        >
+          {{ $vuetify.lang.t("$vuetify.download") }}
+          <v-icon medium>mdi-tray-arrow-down</v-icon>
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn rounded class="secondary" @click="saveSchedule">
+          {{ $vuetify.lang.t("$vuetify.saveMySchedule") }}
+          <v-icon medium>mdi-content-save</v-icon>
+        </v-btn>
+      </v-row>
+    </v-col>
     <v-col lg="3" sm="12" :class="{ 'skip-title': $vuetify.breakpoint.lg }">
       <v-bottom-sheet
         v-if="$vuetify.breakpoint.smAndDown"
@@ -77,29 +100,6 @@
         v-model="classroomId"
       />
     </v-col>
-    <v-col lg="9" sm="12">
-      <p style="font-size: 40px">
-        {{ schedule.item.name }}
-      </p>
-
-      <TimeTable :schedule="schedule" @onCardClick="onCardClick" />
-      <v-row class="mt-2 px-3">
-        <v-btn
-          rounded
-          class="secondary"
-          :loading="downloadLoading"
-          @click="download"
-        >
-          {{ $vuetify.lang.t("$vuetify.download") }}
-          <v-icon medium>mdi-tray-arrow-down</v-icon>
-        </v-btn>
-        <v-spacer></v-spacer>
-        <v-btn rounded class="secondary" @click="saveSchedule">
-          {{ $vuetify.lang.t("$vuetify.saveMySchedule") }}
-          <v-icon medium>mdi-content-save</v-icon>
-        </v-btn>
-      </v-row>
-    </v-col>
   </v-row>
 </template>
 <script lang="ts">
@@ -152,22 +152,22 @@ export default Vue.extend({
       localStorage.setItem(MY_SCHEDULE, JSON.stringify(this.schedule));
     },
     getSchedule(
-      stage_id?: string | null,
-      teacher_id?: string | null,
-      subject_id?: string | null,
-      room_id?: string | null
+      stageId?: string | null,
+      teacherId?: string | null,
+      subjectId?: string | null,
+      classroomId?: string | null
     ) {
-      this.stageId = stage_id;
-      this.teacherId = teacher_id;
-      this.subjectId = subject_id;
-      this.classroomId = room_id;
+      this.stageId = stageId;
+      this.teacherId = teacherId;
+      this.subjectId = subjectId;
+      this.classroomId = classroomId;
       axios
         .get(`${BASE_URL}/schedule/`, {
           params: {
-            stage_id: stage_id,
-            teacher_id: teacher_id,
-            subject_id: subject_id,
-            room_id: room_id,
+            stage_id: stageId,
+            teacher_id: teacherId,
+            subject_id: subjectId,
+            classroom_id: classroomId,
           },
         })
         .then((response) => {
@@ -185,21 +185,21 @@ export default Vue.extend({
       }
     },
 
-    onStageChange(stage_id: string) {
-      this.getSchedule(stage_id);
-      this.addHashToLocation(`?stage_id=${stage_id}`);
+    onStageChange(stageId: string) {
+      this.getSchedule(stageId);
+      this.addHashToLocation(`?stage_id=${stageId}`);
     },
-    onTeacherChange(teacher_id: string) {
-      this.getSchedule(null, teacher_id);
-      this.addHashToLocation(`?teacher_id=${teacher_id}`);
+    onTeacherChange(teacherId: string) {
+      this.getSchedule(null, teacherId);
+      this.addHashToLocation(`?teacher_id=${teacherId}`);
     },
-    onSubjectChange(subject_id: string) {
-      this.getSchedule(null, null, subject_id);
-      this.addHashToLocation(`?subject_id=${subject_id}`);
+    onSubjectChange(subjectId: string) {
+      this.getSchedule(null, null, subjectId);
+      this.addHashToLocation(`?subject_id=${subjectId}`);
     },
-    onRoomChange(room_id: string) {
-      this.getSchedule(null, null, null, room_id);
-      this.addHashToLocation(`?room_id=${room_id}`);
+    onRoomChange(roomId: string) {
+      this.getSchedule(null, null, null, roomId);
+      this.addHashToLocation(`?classroom_id=${roomId}`);
     },
     getAll() {
       axios.get(`${BASE_URL}/schedule/all`).then((response) => {
@@ -237,6 +237,6 @@ export default Vue.extend({
 </script>
 <style  scoped>
 .skip-title {
-  margin-top: 75px;
+  margin-top: 70px;
 }
 </style>

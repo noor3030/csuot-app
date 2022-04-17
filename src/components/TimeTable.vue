@@ -4,7 +4,7 @@
       <thead>
         <tr class="bottom-bordered">
           <th
-            style="border-top: 0px !important; border-left: 0px !important"
+            style="border-top: 0px !important; border-right: 0px !important"
           ></th>
           <th
             v-for="period in _schedule.periods"
@@ -22,7 +22,7 @@
           <td
             class="td-width bordered"
             width="12.5%"
-            style="border-left: 0px !important"
+            style="border-right: 0px !important"
           >
             <h2>{{ day.name }}</h2>
           </td>
@@ -116,8 +116,10 @@ export default Vue.extend({
 .table-bordered > :not(caption):not(.bottom-bordered) > * > * {
   padding: 0.5rem 0.5rem;
   border-top: 1px solid #ddd !important;
+  border-right: 1px solid #ddd !important;
   border-left: 1px solid #ddd !important;
 }
+
 .bottom-bordered {
   border-top: 0px !important;
 }
