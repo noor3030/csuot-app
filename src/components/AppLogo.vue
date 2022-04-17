@@ -5,7 +5,7 @@
       src="@/assets/dark.png"
       :width="size"
       :height="size"
-      class="mt-2 mr-2"
+      class="mt-2 mx-2"
     />
     <img
       v-else

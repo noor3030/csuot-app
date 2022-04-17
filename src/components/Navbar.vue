@@ -19,8 +19,16 @@
         <v-btn v-if="$vuetify.breakpoint.xsOnly" icon v-bind="attrs" v-on="on">
           <v-icon medium color="secondary">mdi-web</v-icon>
         </v-btn>
-        <v-btn v-else rounded text class="secondary" v-bind="attrs" v-on="on">
+        <v-btn
+          v-else
+          rounded
+          text
+          class="secondary mx-2"
+          v-bind="attrs"
+          v-on="on"
+        >
           Language
+          <v-icon medium class="ms-1">mdi-web</v-icon>
         </v-btn>
       </template>
       <v-list>
@@ -74,8 +82,8 @@ export default Vue.extend({
       location.href = "https://t.me/CsUotBot";
     },
     test(item: { language: string; rtl: boolean; title: string }) {
-      this.$vuetify.rtl = item.rtl
-      this.$vuetify.lang.current = item.language
+      this.$vuetify.rtl = item.rtl;
+      this.$vuetify.lang.current = item.language;
     },
   },
 });

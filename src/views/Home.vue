@@ -1,7 +1,9 @@
 <template>
   <v-row class="ma-4">
-      <v-snackbar v-model="saveSnackbar" >
-      تم حفظ ( {{ schedule.item.name }} ) كجدولك
+    <v-snackbar v-model="saveSnackbar">
+      {{
+        $vuetify.lang.t("$vuetify.saveAsYourSchedule", schedule.item.name || "")
+      }}
     </v-snackbar>
     <v-col lg="3" sm="12" :class="{ 'skip-title': $vuetify.breakpoint.lg }">
       <v-bottom-sheet
@@ -40,7 +42,7 @@
 
       <v-autocomplete
         :items="schedules.stages"
-        label="جدول المراحل"
+        :label="$vuetify.lang.t('$vuetify.stagesSchedule')"
         item-text="name"
         item-value="id"
         @change="onStageChange"
@@ -52,14 +54,14 @@
         v-model="teacherId"
         filled
         :items="schedules.teachers"
-        label="جدول الاساتذة"
+        :label="$vuetify.lang.t('$vuetify.teachersSchedule')"
         item-text="name"
         item-value="id"
       />
       <v-autocomplete
         filled
         :items="schedules.subjects"
-        label="جدول المواد"
+        :label="$vuetify.lang.t('$vuetify.subjectsSchedule')"
         item-text="name"
         item-value="id"
         @change="onSubjectChange"
@@ -68,7 +70,7 @@
       <v-autocomplete
         filled
         :items="schedules.classrooms"
-        label="جدول الغرف"
+        :label="$vuetify.lang.t('$vuetify.classroomsSchedule')"
         item-text="name"
         item-value="id"
         @change="onRoomChange"
@@ -88,12 +90,12 @@
           :loading="downloadLoading"
           @click="download"
         >
-          Download
+          {{ $vuetify.lang.t("$vuetify.download") }}
           <v-icon medium>mdi-tray-arrow-down</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn rounded class="secondary" @click="saveSchedule">
-          save timetable
+          {{ $vuetify.lang.t("$vuetify.saveMySchedule") }}
           <v-icon medium>mdi-content-save</v-icon>
         </v-btn>
       </v-row>

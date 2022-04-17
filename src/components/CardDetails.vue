@@ -1,6 +1,6 @@
 <template>
   <v-card v-if="card == null" outlined min-height="250" class="pa-5 rounded">
-    <h2>اضغط على الدرس لعرض التفاصيل</h2>
+    <h2>{{ $vuetify.lang.t("$vuetify.clickToShowDetails") }}</h2>
   </v-card>
   <v-card v-else min-height="250" class="px-5 py-2" outlined>
     <h1 style="text-align: end">{{ day.name }}</h1>
