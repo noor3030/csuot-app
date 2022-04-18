@@ -5,10 +5,26 @@
         $vuetify.lang.t("$vuetify.saveAsYourSchedule", schedule.item.name || "")
       }}
     </v-snackbar>
+
+    <v-snackbar v-model="showCopyMessage">
+      {{ $vuetify.lang.t("$vuetify.copyUrlMessage") }}
+    </v-snackbar>
     <v-col lg="9" sm="12">
-      <p style="font-size: 35px">
-        {{ schedule.item.name }}
-      </p>
+      <v-row
+        style="cursor: pointer"
+        @mouseover="copyTitle = true"
+        @mouseleave="copyTitle = false"
+        justify="center"
+        @click="copyTableUrl"
+      >
+        <v-slide-x-transition>
+          <v-icon v-show="copyTitle">mdi-content-copy</v-icon>
+        </v-slide-x-transition>
+
+        <p style="font-size: 35px">
+          {{ schedule.item.name }}
+        </p>
+      </v-row>
 
       <TimeTable :schedule="schedule" @onCardClick="onCardClick" />
       <v-row class="mt-2 px-3">
@@ -115,7 +131,7 @@ import {
 import { BASE_URL } from "@/utils/config";
 import { MY_SCHEDULE } from "@/utils/keys";
 import { downloadImage } from "@/utils/download";
-import addHashToLocation from "@/utils/route";
+import { addIdToUrl } from "@/utils/route";
 import TimeTable from "@/components/TimeTable.vue";
 export default Vue.extend({
   data() {
@@ -132,6 +148,8 @@ export default Vue.extend({
       selectedCard: null as any,
       selectedDay: null as any,
       selectedPeriod: null as any,
+      showCopyMessage: false as boolean,
+      copyTitle: false as boolean,
 
       schedule: {} as ScheduleDetails,
       schedules: {} as any,
@@ -151,7 +169,15 @@ export default Vue.extend({
       this.saveSnackbar = true;
       localStorage.setItem(MY_SCHEDULE, JSON.stringify(this.schedule));
     },
-    getSchedule(
+    copyUrl(_path: string): void {
+      navigator.clipboard.writeText(_path);
+    },
+    copyTableUrl() {
+      this.showCopyMessage = true;
+      const path: string = this.addIdToUrl(this, this.schedule.item);
+      this.copyUrl(`${window.location.origin}${path}`);
+    },
+    async getSchedule(
       stageId?: string | null,
       teacherId?: string | null,
       subjectId?: string | null,
@@ -161,7 +187,7 @@ export default Vue.extend({
       this.teacherId = teacherId;
       this.subjectId = subjectId;
       this.classroomId = classroomId;
-      axios
+      await axios
         .get(`${BASE_URL}/schedule/`, {
           params: {
             stage_id: stageId,
@@ -185,21 +211,21 @@ export default Vue.extend({
       }
     },
 
-    onStageChange(stageId: string) {
-      this.getSchedule(stageId);
-      this.addHashToLocation(`?stage_id=${stageId}`);
+    async onStageChange(stageId: string) {
+      await this.getSchedule(stageId);
+      this.addIdToUrl(this, this.schedule.item);
     },
-    onTeacherChange(teacherId: string) {
-      this.getSchedule(null, teacherId);
-      this.addHashToLocation(`?teacher_id=${teacherId}`);
+    async onTeacherChange(teacherId: string) {
+      await this.getSchedule(null, teacherId);
+      this.addIdToUrl(this, this.schedule.item);
     },
-    onSubjectChange(subjectId: string) {
-      this.getSchedule(null, null, subjectId);
-      this.addHashToLocation(`?subject_id=${subjectId}`);
+    async onSubjectChange(subjectId: string) {
+      await this.getSchedule(null, null, subjectId);
+      this.addIdToUrl(this, this.schedule.item);
     },
-    onRoomChange(roomId: string) {
-      this.getSchedule(null, null, null, roomId);
-      this.addHashToLocation(`?classroom_id=${roomId}`);
+    async onRoomChange(roomId: string) {
+      await this.getSchedule(null, null, null, roomId);
+      this.addIdToUrl(this, this.schedule.item);
     },
     getAll() {
       axios.get(`${BASE_URL}/schedule/all`).then((response) => {
@@ -230,7 +256,7 @@ export default Vue.extend({
       this.downloadLoading = false;
     },
 
-    addHashToLocation,
+    addIdToUrl,
   },
   components: { CardDetails, TimeTable },
 });

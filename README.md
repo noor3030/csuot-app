@@ -1,4 +1,4 @@
-# csuot-app
+# cs timetable
 
 ## Project setup
 ```

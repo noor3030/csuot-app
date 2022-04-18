@@ -13,4 +13,5 @@ export default {
   teachersSchedule: "Teachers schedule",
   classroomsSchedule: "Classrooms schedule",
   subjectsSchedule: "Subjects schedule",
+  copyUrlMessage: "Link copied to clipboard",
 };

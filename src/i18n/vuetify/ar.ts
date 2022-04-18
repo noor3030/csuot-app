@@ -14,4 +14,5 @@ export default {
   teachersSchedule: "جدول الاساتذة",
   classroomsSchedule: "جدول الغرف",
   subjectsSchedule: "جدول المواد",
+  copyUrlMessage: "تم نسخ الرابط",
 };
