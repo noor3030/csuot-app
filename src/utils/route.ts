@@ -3,6 +3,6 @@ export default function addHashToLocation(this: any, params: string): void {
     {},
     "",
     // TODO: Check if hash is required
-    this.$route.path + "#/" + params
+    this.$route.path  + params
   );
 }
